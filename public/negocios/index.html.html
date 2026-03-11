@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Cocina Ushuaia – Nuestros Negocios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --border: #2a2a2a;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --text: #f0ede8;
+      --muted: #7a7570;
+      --burger: #e05c2a;
+      --lomito: #3a8f6e;
+      --milanesa: #c9a84c;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 64px;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 52px;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .logo-wrap {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      box-shadow: 0 0 40px rgba(201,168,76,0.12);
+    }
+
+    .logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .header-text {
+      text-align: center;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .divider-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px auto 0;
+      justify-content: center;
+    }
+
+    .divider-line span {
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .divider-line span:last-child {
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .divider-line .diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      border-radius: 1px;
+    }
+
+    .section-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 6px;
+    }
+
+    /* ── CARDS ── */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; --accent: var(--burger); }
+    .card:nth-child(2) { animation-delay: 0.2s; --accent: var(--lomito); }
+    .card:nth-child(3) { animation-delay: 0.3s; --accent: var(--milanesa); }
+
+    .card-accent-bar {
+      height: 3px;
+      background: var(--accent);
+      width: 100%;
+    }
+
+    .card-body {
+      padding: 24px 24px 20px;
+    }
+
+    .card-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .card-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      background: #1e1e1e;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      flex-shrink: 0;
+    }
+
+    .card-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .card-info {
+      flex: 1;
+    }
+
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 4px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.15);
+      transform: scale(1.02);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .btn svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    .btn-instagram {
+      margin-top: 10px;
+      width: 100%;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      padding: 9px 14px;
+      justify-content: center;
+      transition: all 0.18s ease;
+    }
+
+    .btn-instagram:hover {
+      border-color: #c13584;
+      color: #e1306c;
+      background: rgba(193,53,132,0.06);
+    }
+
+    .btn-instagram svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 52px;
+      text-align: center;
+      animation: fadeUp 0.7s ease 0.5s both;
+    }
+
+    .footer-logo {
+      width: 48px;
+      opacity: 0.35;
+      margin: 0 auto 10px;
+      display: block;
+    }
+
+    .footer-text {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo-wrap">
+      <img src="https://www.lacocinaushuaia.com.ar/logo-blanco.svg" alt="La Cocina" />
+    </div>
+    <div class="header-text">
+      <div class="brand-name">La Cocina</div>
+      <div class="divider-line">
+        <span></span>
+        <div class="diamond"></div>
+        <span></span>
+      </div>
+      <div class="section-title">Nuestros Negocios</div>
+    </div>
+  </header>
+
+  <!-- CARDS -->
+  <div class="cards">
+
+    <!-- La Burger Club -->
+    <div class="card">
+      <div class="card-accent-bar"></div>
+      <div class="card-body">
+        <div class="card-logo-row">
+          <div class="card-logo">
+            <img src="https://www.lacocinaushuaia.com.ar/logo-burger.svg" alt="La Burger Club" />
+          </div>
+          <div class="card-info">
+            <div class="card-name">La Burger Club</div>
+            <div class="card-desc">Hamburguesas artesanales de primer nivel</div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="#" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            Pedir acá
+          </a>
+          <a href="#" class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Menú
+          </a>
+        </div>
+        <a href="https://instagram.com/laburgerclubushu" target="_blank" class="btn btn-instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          @laburgerclubushu
+        </a>
+      </div>
+    </div>
+
+    <!-- El Club del Lomito -->
+    <div class="card">
+      <div class="card-accent-bar"></div>
+      <div class="card-body">
+        <div class="card-logo-row">
+          <div class="card-logo">
+            <img src="https://www.lacocinaushuaia.com.ar/logo-lomito.svg" alt="El Club del Lomito" />
+          </div>
+          <div class="card-info">
+            <div class="card-name">El Club del Lomito</div>
+            <div class="card-desc">Los mejores lomitos de la ciudad</div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="#" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            Pedir acá
+          </a>
+          <a href="#" class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Menú
+          </a>
+        </div>
+        <a href="https://instagram.com/clubdellomito" target="_blank" class="btn btn-instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          @clubdellomito
+        </a>
+      </div>
+    </div>
+
+    <!-- Milanesa -->
+    <div class="card">
+      <div class="card-accent-bar"></div>
+      <div class="card-body">
+        <div class="card-logo-row">
+          <div class="card-logo">
+            <img src="https://www.lacocinaushuaia.com.ar/logo-milanesa.svg" alt="Milanesa" />
+          </div>
+          <div class="card-info">
+            <div class="card-name">Milanesa</div>
+            <div class="card-desc">Milanesas clásicas y con todos los gustos</div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="#" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            Pedir acá
+          </a>
+          <a href="#" class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Menú
+          </a>
+        </div>
+        <a href="https://instagram.com/milanesaushuaia" target="_blank" class="btn btn-instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          @milanesaushuaia
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <img class="footer-logo" src="https://www.lacocinaushuaia.com.ar/logo-blanco.svg" alt="La Cocina" />
+    <div class="footer-text">© 2026 La Cocina Ushuaia</div>
+  </footer>
+
+</body>
+</html>
