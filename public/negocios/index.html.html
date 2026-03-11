@@ -35,7 +35,6 @@
         url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
 
-    /* ── HEADER ── */
     .header {
       display: flex;
       flex-direction: column;
@@ -58,20 +57,14 @@
       box-shadow: 0 0 40px rgba(201,168,76,0.12);
     }
 
-    .logo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+    .logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
 
-    .header-text {
-      text-align: center;
-    }
+    .header-text { text-align: center; }
 
     .brand-name {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.6rem;
-      font-weight: 900;
+      font-weight: 800;
       letter-spacing: 0.04em;
       color: var(--text);
       line-height: 1;
@@ -114,7 +107,6 @@
       margin-top: 6px;
     }
 
-    /* ── CARDS ── */
     .cards {
       display: flex;
       flex-direction: column;
@@ -142,15 +134,9 @@
     .card:nth-child(2) { animation-delay: 0.2s; --accent: var(--lomito); }
     .card:nth-child(3) { animation-delay: 0.3s; --accent: var(--milanesa); }
 
-    .card-accent-bar {
-      height: 3px;
-      background: var(--accent);
-      width: 100%;
-    }
+    .card-accent-bar { height: 3px; background: var(--accent); width: 100%; }
 
-    .card-body {
-      padding: 24px 24px 20px;
-    }
+    .card-body { padding: 24px 24px 20px; }
 
     .card-logo-row {
       display: flex;
@@ -168,22 +154,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px;
+      padding: 4px;
       flex-shrink: 0;
     }
 
-    .card-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+    .card-logo img { width: 100%; height: 100%; object-fit: contain; }
 
-    .card-info {
-      flex: 1;
-    }
+    .card-info { flex: 1; }
 
     .card-name {
       font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--text);
       line-height: 1.2;
@@ -220,15 +201,8 @@
       border: none;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      filter: brightness(1.15);
-      transform: scale(1.02);
-    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { filter: brightness(1.15); transform: scale(1.02); }
 
     .btn-secondary {
       background: transparent;
@@ -242,11 +216,7 @@
       background: rgba(255,255,255,0.03);
     }
 
-    .btn svg {
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0;
-    }
+    .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 
     .btn-instagram {
       margin-top: 10px;
@@ -268,12 +238,8 @@
       background: rgba(193,53,132,0.06);
     }
 
-    .btn-instagram svg {
-      width: 14px;
-      height: 14px;
-    }
+    .btn-instagram svg { width: 14px; height: 14px; }
 
-    /* ── FOOTER ── */
     .footer {
       margin-top: 52px;
       text-align: center;
@@ -293,7 +259,6 @@
       letter-spacing: 0.06em;
     }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeDown {
       from { opacity: 0; transform: translateY(-20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -307,7 +272,6 @@
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="header">
     <div class="logo-wrap">
       <img src="https://www.lacocinaushuaia.com.ar/logo-blanco.svg" alt="La Cocina" />
@@ -323,7 +287,6 @@
     </div>
   </header>
 
-  <!-- CARDS -->
   <div class="cards">
 
     <!-- La Burger Club -->
@@ -418,7 +381,6 @@
 
   </div>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <img class="footer-logo" src="https://www.lacocinaushuaia.com.ar/logo-blanco.svg" alt="La Cocina" />
     <div class="footer-text">© 2026 La Cocina Ushuaia</div>
