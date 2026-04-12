@@ -1,4 +1,5 @@
 import './globals.css'
+import { Analytics } from '@vercel/analytics/react'
 
 export const metadata = {
   title: 'La Cocina | Delivery y Catering',
@@ -14,6 +15,7 @@ export default function RootLayout({
     <html lang="es">
       <body className="bg-white text-gray-900 antialiased font-sans">
         {children}
+        <Analytics />
       </body>
     </html>
   )
