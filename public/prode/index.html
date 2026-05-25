@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prode Mundial 2026 · La Cocina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="https://www.lacocinaushuaia.com.ar/logo-blanco.svg" type="image/svg+xml" />
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-l: #e8c97a;
+      --bg: #0d0d0d;
+      --surface: #1a1a1a;
+      --surface2: #222;
+      --border: #2a2a2a;
+      --text: #f0ede8;
+      --muted: #7a7570;
+      --green: #3a8f6e;
+      --green-l: #52b38e;
+      --red: #e05c2a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 420px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: #0d0d0d;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .topbar-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
+    .topbar-title { font-size: 13px; font-weight: 700; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; }
+    .topbar-sub { font-size: 10px; color: var(--muted); margin-top: 1px; letter-spacing: 0.04em; }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 420px;
+      background: #0d0d0d;
+      border-top: 1px solid var(--border);
+      display: flex;
+      padding: 8px 0 20px;
+      z-index: 10;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 0;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .nav-item svg { width: 22px; height: 22px; stroke: var(--muted); fill: none; stroke-width: 2; transition: stroke 0.15s; }
+    .nav-item span { font-size: 10px; color: var(--muted); font-weight: 500; transition: color 0.15s; }
+    .nav-item.active svg { stroke: var(--gold); }
+    .nav-item.active span { color: var(--gold); }
+
+    /* SCREENS */
+    .screen { display: none; flex: 1; flex-direction: column; padding-bottom: 90px; }
+    .screen.active { display: flex; }
+
+    /* ── LOGIN ── */
+    .login-hero {
+      background: linear-gradient(180deg, #1a1000 0%, var(--bg) 100%);
+      padding: 40px 24px 32px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .trophy { font-size: 52px; margin-bottom: 12px; display: block; }
+    .login-hero h1 { font-size: 22px; font-weight: 800; color: var(--text); }
+    .login-hero p { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+    .login-prizes {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .prize-pill {
+      background: #1a1500;
+      border: 1px solid #3a2a00;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 11px;
+      color: var(--gold-l);
+      font-weight: 600;
+    }
+    .login-form-wrap { padding: 24px 20px; display: flex; flex-direction: column; gap: 14px; }
+    .form-section-title { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .field input {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+      transition: border-color 0.15s;
+    }
+    .field input:focus { border-color: var(--gold); }
+    .field input::placeholder { color: #444; }
+    .btn-gold {
+      background: var(--gold);
+      color: #1a1000;
+      border: none;
+      border-radius: 14px;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      transition: all 0.15s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.25);
+    }
+    .btn-gold:hover { background: var(--gold-l); }
+    .login-terms { font-size: 11px; color: var(--muted); text-align: center; line-height: 1.5; }
+    .login-terms span { color: var(--gold); cursor: pointer; }
+
+    /* ── JUGAR ── */
+    .jugar-header { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .fecha-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0a1f0f;
+      border: 1px solid #1a4a28;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px;
+      color: var(--green-l);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .pulse { width: 6px; height: 6px; background: var(--green-l); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .jugar-title { font-size: 17px; font-weight: 700; margin-top: 10px; }
+    .jugar-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .mi-puntaje {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      margin-top: 12px;
+    }
+    .mi-puntaje-label { font-size: 11px; color: var(--muted); flex: 1; }
+    .mi-puntaje-pts { font-size: 16px; font-weight: 800; color: var(--gold); }
+    .partidos { padding: 12px 20px; display: flex; flex-direction: column; gap: 12px; }
+    .partido-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+    .partido-card.guardado { border-color: #1a4a28; }
+    .partido-top {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .partido-fase { font-size: 10px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+    .estado-abierto { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--green-l); font-weight: 600; }
+    .estado-cerrado { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--red); font-weight: 600; }
+    .estado-abierto svg, .estado-cerrado svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+    .partido-body { padding: 16px 14px; }
+    .partido-equipos { display: flex; align-items: center; gap: 8px; }
+    .equipo { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .equipo-flag { font-size: 28px; }
+    .equipo-nombre { font-size: 12px; font-weight: 600; color: var(--text); text-align: center; }
+    .vs-col { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 8px; }
+    .vs-label { font-size: 10px; color: var(--muted); font-weight: 500; }
+    .vs-inputs { display: flex; align-items: center; gap: 6px; }
+    .score-input {
+      width: 40px; height: 40px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 18px; font-weight: 700;
+      text-align: center;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.15s;
+    }
+    .score-input:focus { border-color: var(--gold); }
+    .score-input:disabled { opacity: 0.5; cursor: not-allowed; }
+    .score-sep { font-size: 18px; color: var(--muted); font-weight: 700; }
+    .partido-footer { padding: 10px 14px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .guardado-tag { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--green-l); font-weight: 600; }
+    .guardado-tag svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+    .btn-guardar {
+      background: var(--gold);
+      color: #1a1000;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-guardar:hover { background: var(--gold-l); }
+    .submit-bar { padding: 16px 20px; border-top: 1px solid var(--border); position: sticky; bottom: 72px; background: var(--bg); }
+    .btn-submit {
+      background: var(--gold);
+      color: #1a1000;
+      border: none;
+      border-radius: 14px;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-submit:hover { background: var(--gold-l); }
+
+    /* ── RANKING ── */
+    .ranking-header { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .ranking-title { font-size: 17px; font-weight: 700; }
+    .ranking-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .tabs { display: flex; gap: 6px; margin-top: 14px; }
+    .tab {
+      flex: 1; text-align: center;
+      padding: 8px;
+      border-radius: 10px;
+      font-size: 12px; font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--surface);
+      transition: all 0.15s;
+    }
+    .tab.active { background: var(--gold); color: #1a1000; border-color: var(--gold); }
+    .premio-banner {
+      margin: 14px 20px 0;
+      background: #0a1f0f;
+      border: 1px solid #1a4a28;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .premio-emoji { font-size: 28px; }
+    .premio-title { font-size: 13px; font-weight: 700; color: var(--green-l); }
+    .premio-sub { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+    .ranking-list { padding: 14px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .rank-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.15s;
+    }
+    .rank-item.me { border-color: var(--gold); }
+    .rank-pos { font-size: 17px; font-weight: 800; min-width: 28px; text-align: center; color: var(--muted); }
+    .pos-1 { color: #FFD700; }
+    .pos-2 { color: #C0C0C0; }
+    .pos-3 { color: #CD7F32; }
+    .rank-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--surface2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--muted);
+      flex-shrink: 0;
+    }
+    .rank-avatar.me { background: #1a1500; color: var(--gold); }
+    .rank-info { flex: 1; }
+    .rank-name { font-size: 13px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 6px; }
+    .me-badge { font-size: 9px; background: var(--gold); color: #1a1000; border-radius: 4px; padding: 2px 6px; font-weight: 700; }
+    .rank-detail { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .rank-pts { text-align: right; }
+    .rank-pts-num { font-size: 20px; font-weight: 800; color: var(--gold); line-height: 1; }
+    .rank-pts-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+    .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 14px 20px 0; }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-num { font-size: 26px; font-weight: 800; color: var(--gold); }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-dot"></div>
+      <div>
+        <div class="topbar-title">La Cocina · Prode</div>
+        <div class="topbar-sub">Mundial 2026</div>
+      </div>
+    </div>
+    <img src="https://www.lacocinaushuaia.com.ar/logo-blanco.svg" style="height:28px;opacity:0.6" alt="La Cocina" />
+  </div>
+
+  <!-- ── SCREEN: LOGIN ── -->
+  <div class="screen active" id="screen-login">
+    <div class="login-hero">
+      <span class="trophy">🏆</span>
+      <h1>Prode Mundial 2026</h1>
+      <p>Pronosticá los partidos, acumulá puntos<br>y ganá premios reales en La Cocina</p>
+      <div class="login-prizes">
+        <div class="prize-pill">🍔 Combos gratis</div>
+        <div class="prize-pill">🛵 Envíos sin cargo</div>
+        <div class="prize-pill">🎁 Descuentos</div>
+      </div>
+    </div>
+
+    <div class="login-form-wrap">
+      <div class="form-section-title">Crear cuenta gratis</div>
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" placeholder="Ej: Martín" id="inp-nombre" />
+      </div>
+      <div class="field">
+        <label>Apellido</label>
+        <input type="text" placeholder="Ej: García" id="inp-apellido" />
+      </div>
+      <div class="field">
+        <label>WhatsApp (para recibir tus premios)</label>
+        <input type="tel" placeholder="+54 9 2901 123456" id="inp-tel" />
+      </div>
+      <button class="btn-gold" onclick="registrar()">Entrar al Prode →</button>
+      <p class="login-terms">Al registrarte aceptás recibir notificaciones sobre el prode y premios. <span>Ver términos</span></p>
+    </div>
+  </div>
+
+  <!-- ── SCREEN: JUGAR ── -->
+  <div class="screen" id="screen-jugar">
+    <div class="jugar-header">
+      <div class="fecha-badge">
+        <div class="pulse"></div>
+        Fecha 3 · Fase de Grupos
+      </div>
+      <div class="jugar-title">Cargá tus pronósticos</div>
+      <div class="jugar-sub">Cierra antes de cada partido. ¡No te lo pierdas!</div>
+      <div class="mi-puntaje">
+        <div class="mi-puntaje-label">Tu puntaje acumulado</div>
+        <div class="mi-puntaje-pts">19 pts</div>
+      </div>
+    </div>
+
+    <div class="partidos">
+
+      <!-- Partido 1: Argentina vs Chile (abierto) -->
+      <div class="partido-card" id="card-1">
+        <div class="partido-top">
+          <div class="partido-fase">Grupo C · Jue 19/06 · 16:00hs</div>
+          <div class="estado-abierto">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Abierto
+          </div>
+        </div>
+        <div class="partido-body">
+          <div class="partido-equipos">
+            <div class="equipo">
+              <div class="equipo-flag">🇦🇷</div>
+              <div class="equipo-nombre">Argentina</div>
+            </div>
+            <div class="vs-col">
+              <div class="vs-label">Tu pronóstico</div>
+              <div class="vs-inputs">
+                <input type="number" class="score-input" value="2" min="0" max="20" id="c1-l" />
+                <span class="score-sep">-</span>
+                <input type="number" class="score-input" value="0" min="0" max="20" id="c1-v" />
+              </div>
+            </div>
+            <div class="equipo">
+              <div class="equipo-flag">🇨🇱</div>
+              <div class="equipo-nombre">Chile</div>
+            </div>
+          </div>
+        </div>
+        <div class="partido-footer" id="footer-1">
+          <div></div>
+          <button class="btn-guardar" onclick="guardar(1)">Guardar pronóstico</button>
+        </div>
+      </div>
+
+      <!-- Partido 2: Brasil vs Uruguay (abierto) -->
+      <div class="partido-card" id="card-2">
+        <div class="partido-top">
+          <div class="partido-fase">Grupo D · Jue 19/06 · 19:00hs</div>
+          <div class="estado-abierto">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Abierto
+          </div>
+        </div>
+        <div class="partido-body">
+          <div class="partido-equipos">
+            <div class="equipo">
+              <div class="equipo-flag">🇧🇷</div>
+              <div class="equipo-nombre">Brasil</div>
+            </div>
+            <div class="vs-col">
+              <div class="vs-label">Tu pronóstico</div>
+              <div class="vs-inputs">
+                <input type="number" class="score-input" placeholder="-" min="0" max="20" id="c2-l" />
+                <span class="score-sep">-</span>
+                <input type="number" class="score-input" placeholder="-" min="0" max="20" id="c2-v" />
+              </div>
+            </div>
+            <div class="equipo">
+              <div class="equipo-flag">🇺🇾</div>
+              <div class="equipo-nombre">Uruguay</div>
+            </div>
+          </div>
+        </div>
+        <div class="partido-footer" id="footer-2">
+          <div></div>
+          <button class="btn-guardar" onclick="guardar(2)">Guardar pronóstico</button>
+        </div>
+      </div>
+
+      <!-- Partido 3: Francia vs Alemania (cerrado) -->
+      <div class="partido-card" style="opacity:0.65">
+        <div class="partido-top">
+          <div class="partido-fase">Grupo A · Mar 17/06 · 13:00hs</div>
+          <div class="estado-cerrado">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Cerrado
+          </div>
+        </div>
+        <div class="partido-body">
+          <div class="partido-equipos">
+            <div class="equipo">
+              <div class="equipo-flag">🇫🇷</div>
+              <div class="equipo-nombre">Francia</div>
+            </div>
+            <div class="vs-col">
+              <div class="vs-label">Tu pronóstico</div>
+              <div class="vs-inputs">
+                <input type="number" class="score-input" value="2" disabled />
+                <span class="score-sep">-</span>
+                <input type="number" class="score-input" value="0" disabled />
+              </div>
+            </div>
+            <div class="equipo">
+              <div class="equipo-flag">🇩🇪</div>
+              <div class="equipo-nombre">Alemania</div>
+            </div>
+          </div>
+        </div>
+        <div class="partido-footer">
+          <div class="guardado-tag">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Guardado
+          </div>
+          <div style="font-size:11px;color:var(--muted);">Resultado real: 1-1</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="submit-bar">
+      <button class="btn-submit" onclick="showScreen('ranking')">Confirmar todos mis pronósticos ✓</button>
+    </div>
+  </div>
+
+  <!-- ── SCREEN: RANKING ── -->
+  <div class="screen" id="screen-ranking">
+    <div class="ranking-header">
+      <div class="ranking-title">Tabla de posiciones</div>
+      <div class="ranking-sub">Mundial 2026 · Actualizado al 18/06</div>
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab(this, 'general')">General</div>
+        <div class="tab" onclick="switchTab(this, 'fecha')">Esta fecha</div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">47</div>
+        <div class="stat-label">Jugadores</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Fechas jugadas</div>
+      </div>
+    </div>
+
+    <div class="premio-banner">
+      <div class="premio-emoji">🎁</div>
+      <div>
+        <div class="premio-title">¡Ganaste un premio esta fecha!</div>
+        <div class="premio-sub">Envío gratis en tu próximo pedido.<br>Válido hasta el 25/06. Avisá por WhatsApp.</div>
+      </div>
+    </div>
+
+    <div class="ranking-list" id="ranking-general">
+      <div class="rank-item">
+        <div class="rank-pos pos-1">1</div>
+        <div class="rank-avatar">MR</div>
+        <div class="rank-info">
+          <div class="rank-name">Marcos R.</div>
+          <div class="rank-detail">3 exactos · 2 tendencias</div>
+        </div>
+        <div class="rank-pts">
+          <div class="rank-pts-num">24</div>
+          <div class="rank-pts-label">pts</div>
+        </div>
+      </div>
+      <div class="rank-item">
+        <div class="rank-pos pos-2">2</div>
+        <div class="rank-avatar">SL</div>
+        <div class="rank-info">
+          <div class="rank-name">Sofía L.</div>
+          <div class="rank-detail">2 exactos · 4 tendencias</div>
+        </div>
+        <div class="rank-pts">
+          <div class="rank-pts-num">22</div>
+          <div class="rank-pts-label">pts</div>
+        </div>
+      </div>
+      <div class="rank-item me">
+        <div class="rank-pos pos-3">3</div>
+        <div class="rank-avatar me">JU</div>
+        <div class="rank-info">
+          <div class="rank-name">Julián U. <span class="me-badge">Vos</span></div>
+          <div class="rank-detail">2 exactos · 3 tendencias</div>
+        </div>
+        <div class="rank-pts">
+          <div class="rank-pts-num">19</div>
+          <div class="rank-pts-label">pts</div>
+        </div>
+      </div>
+      <div class="rank-item">
+        <div class="rank-pos">4</div>
+        <div class="rank-avatar">FG</div>
+        <div class="rank-info">
+          <div class="rank-name">Franco G.</div>
+          <div class="rank-detail">1 exacto · 5 tendencias</div>
+        </div>
+        <div class="rank-pts">
+          <div class="rank-pts-num">17</div>
+          <div class="rank-pts-label">pts</div>
+        </div>
+      </div>
+      <div class="rank-item">
+        <div class="rank-pos">5</div>
+        <div class="rank-avatar">AP</div>
+        <div class="rank-info">
+          <div class="rank-name">Ana P.</div>
+          <div class="rank-detail">1 exacto · 3 tendencias</div>
+        </div>
+        <div class="rank-pts">
+          <div class="rank-pts-num">12</div>
+          <div class="rank-pts-label">pts</div>
+        </div>
+      </div>
+      <div class="rank-item">
+        <div class="rank-pos">6</div>
+        <div class="rank-avatar">RM</div>
+        <div class="rank-info">
+          <div class="rank-name">Rocío M.</div>
+          <div class="rank-detail">0 exactos · 4 tendencias</div>
+        </div>
+        <div class="rank-pts">
+          <div class="rank-pts-num">8</div>
+          <div class="rank-pts-label">pts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nav-item active" id="nav-login" onclick="showScreen('login')">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Inicio</span>
+    </button>
+    <button class="nav-item" id="nav-jugar" onclick="showScreen('jugar')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      <span>Jugar</span>
+    </button>
+    <button class="nav-item" id="nav-ranking" onclick="showScreen('ranking')">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>Ranking</span>
+    </button>
+  </div>
+
+</div>
+
+<script>
+  function showScreen(name) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.getElementById('screen-' + name).classList.add('active');
+    document.getElementById('nav-' + name).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function registrar() {
+    const nombre = document.getElementById('inp-nombre').value.trim();
+    const tel = document.getElementById('inp-tel').value.trim();
+    if (!nombre || !tel) {
+      alert('Completá tu nombre y WhatsApp para continuar.');
+      return;
+    }
+    showScreen('jugar');
+  }
+
+  function guardar(id) {
+    const card = document.getElementById('card-' + id);
+    const footer = document.getElementById('footer-' + id);
+    const l = document.getElementById('c' + id + '-l').value || '0';
+    const v = document.getElementById('c' + id + '-v').value || '0';
+    card.classList.add('guardado');
+    footer.innerHTML = `
+      <div class="guardado-tag">
+        <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Guardado: ${l}-${v}
+      </div>
+      <div style="font-size:11px;color:var(--muted);">Podés editar hasta el cierre</div>
+    `;
+  }
+
+  function switchTab(el, tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
+</body>
+</html>
