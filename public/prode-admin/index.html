@@ -8,89 +8,31 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --gold: #c9a84c;
-      --gold-l: #e8c97a;
-      --bg: #0d0d0d;
-      --surface: #1a1a1a;
-      --surface2: #222;
-      --border: #2a2a2a;
-      --text: #f0ede8;
-      --muted: #7a7570;
-      --green: #3a8f6e;
-      --green-l: #52b38e;
-      --red: #e05c2a;
-      --red-l: #ff7a47;
+      --gold: #c9a84c; --gold-l: #e8c97a;
+      --bg: #0d0d0d; --surface: #1a1a1a; --surface2: #222;
+      --border: #2a2a2a; --text: #f0ede8; --muted: #7a7570;
+      --green: #3a8f6e; --green-l: #52b38e; --red: #e05c2a; --red-l: #ff7a47;
     }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      min-height: 100vh;
-    }
+    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
 
-    /* LOGIN ADMIN */
-    .admin-login {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .login-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 32px;
-      width: 100%;
-      max-width: 380px;
-    }
+    /* LOGIN */
+    .admin-login { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 36px 32px; width: 100%; max-width: 380px; }
     .login-card .lock { font-size: 36px; text-align: center; display: block; margin-bottom: 16px; }
     .login-card h1 { font-size: 20px; font-weight: 800; text-align: center; }
     .login-card p { font-size: 12px; color: var(--muted); text-align: center; margin-top: 4px; }
     .field { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; }
     .field label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
-    .field input {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 16px;
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-      font-family: inherit;
-    }
+    .field input { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; color: var(--text); font-size: 14px; outline: none; font-family: inherit; }
     .field input:focus { border-color: var(--gold); }
     .field input::placeholder { color: #444; }
-    .btn-gold {
-      background: var(--gold);
-      color: #1a1000;
-      border: none;
-      border-radius: 12px;
-      padding: 13px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-      font-family: inherit;
-      margin-top: 20px;
-    }
+    .btn-gold { background: var(--gold); color: #1a1000; border: none; border-radius: 12px; padding: 13px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; font-family: inherit; margin-top: 20px; }
     .btn-gold:hover { background: var(--gold-l); }
 
-    /* LAYOUT ADMIN */
+    /* LAYOUT */
     .admin-layout { display: none; min-height: 100vh; flex-direction: column; }
     .admin-layout.active { display: flex; }
-
-    .admin-topbar {
-      background: #0d0d0d;
-      border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
+    .admin-topbar { background: #0d0d0d; border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 20; }
     .admin-topbar-left { display: flex; align-items: center; gap: 10px; }
     .admin-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; }
     .admin-title { font-size: 13px; font-weight: 700; color: var(--red-l); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -98,154 +40,62 @@
     .admin-badge { background: #2a0a00; border: 1px solid #5a2010; border-radius: 6px; padding: 4px 10px; font-size: 11px; color: var(--red-l); font-weight: 700; }
     .btn-logout { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; color: var(--muted); font-size: 12px; cursor: pointer; font-family: inherit; }
     .btn-logout:hover { border-color: var(--red); color: var(--red-l); }
-
     .admin-body { display: flex; flex: 1; }
 
     /* SIDEBAR */
-    .sidebar {
-      width: 200px;
-      background: #111;
-      border-right: 1px solid var(--border);
-      padding: 20px 0;
-      flex-shrink: 0;
-      position: sticky;
-      top: 57px;
-      height: calc(100vh - 57px);
-    }
-    .sidebar-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      cursor: pointer;
-      border: none;
-      background: none;
-      width: 100%;
-      font-family: inherit;
-      transition: all 0.15s;
-      border-left: 3px solid transparent;
-      text-align: left;
-    }
+    .sidebar { width: 200px; background: #111; border-right: 1px solid var(--border); padding: 20px 0; flex-shrink: 0; position: sticky; top: 57px; height: calc(100vh - 57px); overflow-y: auto; }
+    .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 10px 20px; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; border: none; background: none; width: 100%; font-family: inherit; transition: all 0.15s; border-left: 3px solid transparent; text-align: left; }
     .sidebar-item:hover { color: var(--text); background: #1a1a1a; }
     .sidebar-item.active { color: var(--gold); background: #1a1500; border-left-color: var(--gold); }
     .sidebar-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
     .sidebar-section { font-size: 10px; color: #444; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 20px 6px; }
 
-    /* MAIN CONTENT */
+    /* MAIN */
     .admin-main { flex: 1; padding: 24px; overflow-y: auto; }
     .admin-screen { display: none; }
     .admin-screen.active { display: block; }
 
-    /* STATS CARDS */
+    /* COMPONENTS */
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-    }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
     .stat-label { font-size: 11px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
     .stat-num { font-size: 28px; font-weight: 800; color: var(--gold); margin-top: 6px; line-height: 1; }
     .stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
-
-    /* SECTION HEADER */
     .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
     .section-title { font-size: 16px; font-weight: 700; }
     .section-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .btn-action {
-      background: var(--gold);
-      color: #1a1000;
-      border: none;
-      border-radius: 10px;
-      padding: 9px 16px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .btn-action { background: var(--gold); color: #1a1000; border: none; border-radius: 10px; padding: 9px 16px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 6px; }
     .btn-action:hover { background: var(--gold-l); }
     .btn-action svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
-    .btn-sm {
-      border: none;
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-    }
+    .btn-sm { border: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
     .btn-green { background: #0a2a1a; color: var(--green-l); border: 1px solid #1a5a38; }
     .btn-green:hover { background: #0f3a22; }
     .btn-red-outline { background: none; color: var(--red-l); border: 1px solid #5a2010; }
     .btn-red-outline:hover { background: #2a0a00; }
-
-    /* TABLE */
-    .table-wrap {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
     table { width: 100%; border-collapse: collapse; }
     thead tr { border-bottom: 1px solid var(--border); }
     th { padding: 12px 16px; font-size: 11px; font-weight: 600; color: var(--muted); text-align: left; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
     td { padding: 12px 16px; font-size: 13px; color: var(--text); border-bottom: 1px solid #1e1e1e; vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #1e1e1e; }
-
-    /* BADGES */
     .badge { display: inline-flex; align-items: center; gap: 4px; border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 600; }
     .badge-green { background: #0a2a1a; color: var(--green-l); border: 1px solid #1a5a38; }
     .badge-red { background: #2a0a00; color: var(--red-l); border: 1px solid #5a2010; }
     .badge-gold { background: #1a1500; color: var(--gold); border: 1px solid #3a2a00; }
     .badge-gray { background: #1e1e1e; color: var(--muted); border: 1px solid var(--border); }
-    .badge svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2.5; }
-
-    /* FORM NUEVA FECHA */
-    .form-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-    .form-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 16px; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-    .form-field { display: flex; flex-direction: column; gap: 5px; }
-    .form-field label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-    .form-field input, .form-field select {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      color: var(--text);
-      font-size: 13px;
-      outline: none;
-      font-family: inherit;
-    }
-    .form-field input:focus, .form-field select:focus { border-color: var(--gold); }
-    .form-field select option { background: #222; }
-    .form-actions { display: flex; gap: 10px; margin-top: 16px; }
-    .btn-cancel { background: none; border: 1px solid var(--border); border-radius: 10px; padding: 10px 20px; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
-    .btn-cancel:hover { border-color: var(--text); color: var(--text); }
-
-    /* RESULTADO MODAL */
-    .resultado-form {
-      background: #0a1f0f;
-      border: 1px solid #1a4a28;
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 8px;
-      display: none;
-    }
+    .avatar { width: 32px; height: 32px; border-radius: 50%; background: #2a2a2a; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--muted); flex-shrink: 0; }
+    .user-info { display: flex; align-items: center; gap: 10px; }
+    .search-bar { display: flex; gap: 10px; margin-bottom: 16px; }
+    .search-input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; color: var(--text); font-size: 13px; outline: none; font-family: inherit; }
+    .search-input:focus { border-color: var(--gold); }
+    .search-input::placeholder { color: #444; }
+    .notif-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+    .notif-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .notif-card p { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+    .notif-preview { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; font-size: 13px; line-height: 1.6; color: var(--text); margin-bottom: 14px; }
+    .notif-preview strong { color: var(--gold); }
+    .resultado-form { background: #0a1f0f; border: 1px solid #1a4a28; border-radius: 12px; padding: 16px; margin-top: 8px; display: none; }
     .resultado-form.open { display: block; }
     .resultado-form h4 { font-size: 12px; font-weight: 700; color: var(--green-l); margin-bottom: 12px; }
     .resultado-inputs { display: flex; align-items: center; gap: 12px; }
@@ -255,79 +105,50 @@
     .btn-confirmar { background: var(--green); color: #fff; border: none; border-radius: 10px; padding: 10px 20px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 12px; width: 100%; }
     .btn-confirmar:hover { background: var(--green-l); }
 
-    /* JUGADORES */
-    .search-bar { display: flex; gap: 10px; margin-bottom: 16px; }
-    .search-input {
-      flex: 1;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 16px;
-      color: var(--text);
-      font-size: 13px;
-      outline: none;
-      font-family: inherit;
-    }
-    .search-input:focus { border-color: var(--gold); }
-    .search-input::placeholder { color: #444; }
-    .avatar { width: 32px; height: 32px; border-radius: 50%; background: #2a2a2a; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--muted); flex-shrink: 0; }
-    .user-info { display: flex; align-items: center; gap: 10px; }
-
-    /* NOTIF */
-    .notif-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-    .notif-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .notif-card p { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
-    .notif-preview {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--text);
-      margin-bottom: 14px;
-    }
-    .notif-preview strong { color: var(--gold); }
-    .notif-stats { display: flex; gap: 16px; margin-top: 10px; }
-    .notif-stat { font-size: 12px; color: var(--muted); }
-    .notif-stat span { color: var(--text); font-weight: 600; }
-
-    @media (max-width: 768px) {
-      .sidebar { display: none; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .form-grid, .form-grid-3 { grid-template-columns: 1fr; }
-    }
+    /* BUSCADOR DE PARTIDOS */
+    .partido-selector { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
+    .selector-header { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .selector-header h3 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+    .selector-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .filter-btn:hover { color: var(--text); border-color: #444; }
+    .filter-btn.active { background: #1a1500; color: var(--gold); border-color: var(--gold); }
+    .selector-search { padding: 12px 20px; border-bottom: 1px solid var(--border); }
+    .selector-search input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; color: var(--text); font-size: 13px; outline: none; font-family: inherit; }
+    .selector-search input:focus { border-color: var(--gold); }
+    .selector-search input::placeholder { color: #444; }
+    .selector-list { max-height: 400px; overflow-y: auto; }
+    .partido-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #1e1e1e; cursor: pointer; transition: background 0.12s; }
+    .partido-row:last-child { border-bottom: none; }
+    .partido-row:hover { background: #1e1e1e; }
+    .partido-row.added { opacity: 0.5; pointer-events: none; }
+    .partido-match { display: flex; align-items: center; gap: 12px; }
+    .partido-teams { font-size: 14px; font-weight: 600; }
+    .partido-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .partido-right { display: flex; align-items: center; gap: 10px; }
+    .btn-add { background: #1a1500; color: var(--gold); border: 1px solid #3a2a00; border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: all 0.15s; }
+    .btn-add:hover { background: var(--gold); color: #1a1000; }
+    .btn-added { background: #0a2a1a; color: var(--green-l); border: 1px solid #1a5a38; border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 700; font-family: inherit; }
+    .grupo-tag { font-size: 11px; color: var(--muted); background: #1e1e1e; border-radius: 4px; padding: 2px 7px; }
+    .empty-msg { padding: 24px; text-align: center; color: var(--muted); font-size: 13px; }
   </style>
 </head>
 <body>
 
-<!-- ── LOGIN ── -->
+<!-- LOGIN -->
 <div class="admin-login" id="admin-login">
   <div class="login-card">
     <span class="lock">🔐</span>
     <h1>Panel de Admin</h1>
     <p>Prode Mundial 2026 · La Cocina</p>
-    <div class="field">
-      <label>Usuario</label>
-      <input type="text" placeholder="admin" id="inp-user" />
-    </div>
-    <div class="field">
-      <label>Contraseña</label>
-      <input type="password" placeholder="••••••••" id="inp-pass" />
-    </div>
+    <div class="field"><label>Usuario</label><input type="text" placeholder="admin" id="inp-user" /></div>
+    <div class="field"><label>Contraseña</label><input type="password" placeholder="••••••••" id="inp-pass" /></div>
     <button class="btn-gold" onclick="loginAdmin()">Ingresar →</button>
   </div>
 </div>
 
-<!-- ── ADMIN LAYOUT ── -->
+<!-- ADMIN LAYOUT -->
 <div class="admin-layout" id="admin-layout">
-
   <div class="admin-topbar">
     <div class="admin-topbar-left">
       <div class="admin-dot"></div>
@@ -343,113 +164,53 @@
   </div>
 
   <div class="admin-body">
-
-    <!-- SIDEBAR -->
     <div class="sidebar">
       <div class="sidebar-section">General</div>
-      <button class="sidebar-item active" onclick="adminScreen('dashboard', this)">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        Dashboard
+      <button class="sidebar-item active" onclick="adminScreen('dashboard',this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
       </button>
       <div class="sidebar-section">Prode</div>
-      <button class="sidebar-item" onclick="adminScreen('partidos', this)">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        Partidos
+      <button class="sidebar-item" onclick="adminScreen('partidos',this)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Partidos
       </button>
-      <button class="sidebar-item" onclick="adminScreen('resultados', this)">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        Resultados
+      <button class="sidebar-item" onclick="adminScreen('resultados',this)">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Resultados
       </button>
       <div class="sidebar-section">Usuarios</div>
-      <button class="sidebar-item" onclick="adminScreen('jugadores', this)">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        Jugadores
+      <button class="sidebar-item" onclick="adminScreen('jugadores',this)">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Jugadores
       </button>
-      <button class="sidebar-item" onclick="adminScreen('premios', this)">
-        <svg viewBox="0 0 24 24"><path d="M12 15c3.31 0 6-2.69 6-6V3H6v6c0 3.31 2.69 6 6 6z"/><path d="M8.21 15H4a2 2 0 000 4h16a2 2 0 000-4h-4.21"/><line x1="12" y1="15" x2="12" y2="19"/></svg>
-        Premios
+      <button class="sidebar-item" onclick="adminScreen('premios',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 15c3.31 0 6-2.69 6-6V3H6v6c0 3.31 2.69 6 6 6z"/><path d="M8.21 15H4a2 2 0 000 4h16a2 2 0 000-4h-4.21"/><line x1="12" y1="15" x2="12" y2="19"/></svg>Premios
       </button>
       <div class="sidebar-section">Comunicación</div>
-      <button class="sidebar-item" onclick="adminScreen('notif', this)">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        Notificaciones
+      <button class="sidebar-item" onclick="adminScreen('notif',this)">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Notificaciones
       </button>
     </div>
 
-    <!-- MAIN -->
     <div class="admin-main">
 
       <!-- DASHBOARD -->
       <div class="admin-screen active" id="screen-dashboard">
         <div class="section-header">
-          <div>
-            <div class="section-title">Dashboard</div>
-            <div class="section-sub">Resumen general · Actualizado ahora</div>
-          </div>
+          <div><div class="section-title">Dashboard</div><div class="section-sub">Resumen general · Actualizado ahora</div></div>
         </div>
         <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label">Jugadores</div>
-            <div class="stat-num">47</div>
-            <div class="stat-sub">+12 esta semana</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Fechas jugadas</div>
-            <div class="stat-num">3</div>
-            <div class="stat-sub">Fecha 4 próxima</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Pronósticos cargados</div>
-            <div class="stat-num">312</div>
-            <div class="stat-sub">Esta fecha: 89</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Premios entregados</div>
-            <div class="stat-num">9</div>
-            <div class="stat-sub">3 sin canjear</div>
-          </div>
+          <div class="stat-card"><div class="stat-label">Jugadores</div><div class="stat-num">47</div><div class="stat-sub">+12 esta semana</div></div>
+          <div class="stat-card"><div class="stat-label">Fechas jugadas</div><div class="stat-num">3</div><div class="stat-sub">Fecha 4 próxima</div></div>
+          <div class="stat-card"><div class="stat-label">Pronósticos</div><div class="stat-num">312</div><div class="stat-sub">Esta fecha: 89</div></div>
+          <div class="stat-card"><div class="stat-label">Premios entregados</div><div class="stat-num">9</div><div class="stat-sub">3 sin canjear</div></div>
         </div>
-
-        <div class="section-header" style="margin-top:8px;">
-          <div>
-            <div class="section-title">Actividad reciente</div>
-          </div>
-        </div>
+        <div class="section-header" style="margin-top:8px;"><div class="section-title">Actividad reciente</div></div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Jugador</th>
-                <th>Acción</th>
-                <th>Detalle</th>
-                <th>Hora</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Jugador</th><th>Acción</th><th>Detalle</th><th>Hora</th></tr></thead>
             <tbody>
-              <tr>
-                <td><div class="user-info"><div class="avatar">MR</div>Marcos R.</div></td>
-                <td><span class="badge badge-green">Pronóstico</span></td>
-                <td>Argentina 2-0 Chile</td>
-                <td style="color:var(--muted)">Hace 5 min</td>
-              </tr>
-              <tr>
-                <td><div class="user-info"><div class="avatar">SL</div>Sofía L.</div></td>
-                <td><span class="badge badge-green">Pronóstico</span></td>
-                <td>Brasil 1-1 Uruguay</td>
-                <td style="color:var(--muted)">Hace 12 min</td>
-              </tr>
-              <tr>
-                <td><div class="user-info"><div class="avatar">FG</div>Franco G.</div></td>
-                <td><span class="badge badge-gold">Registro</span></td>
-                <td>Se unió al prode</td>
-                <td style="color:var(--muted)">Hace 1h</td>
-              </tr>
-              <tr>
-                <td><div class="user-info"><div class="avatar">AP</div>Ana P.</div></td>
-                <td><span class="badge badge-red">Premio</span></td>
-                <td>Canjeó envío gratis</td>
-                <td style="color:var(--muted)">Hace 2h</td>
-              </tr>
+              <tr><td><div class="user-info"><div class="avatar">MR</div>Marcos R.</div></td><td><span class="badge badge-green">Pronóstico</span></td><td>Argentina 2-0 Chile</td><td style="color:var(--muted)">Hace 5 min</td></tr>
+              <tr><td><div class="user-info"><div class="avatar">SL</div>Sofía L.</div></td><td><span class="badge badge-green">Pronóstico</span></td><td>Brasil 1-1 Uruguay</td><td style="color:var(--muted)">Hace 12 min</td></tr>
+              <tr><td><div class="user-info"><div class="avatar">FG</div>Franco G.</div></td><td><span class="badge badge-gold">Registro</span></td><td>Se unió al prode</td><td style="color:var(--muted)">Hace 1h</td></tr>
+              <tr><td><div class="user-info"><div class="avatar">AP</div>Ana P.</div></td><td><span class="badge badge-red">Premio</span></td><td>Canjeó envío gratis</td><td style="color:var(--muted)">Hace 2h</td></tr>
             </tbody>
           </table>
         </div>
@@ -458,103 +219,44 @@
       <!-- PARTIDOS -->
       <div class="admin-screen" id="screen-partidos">
         <div class="section-header">
-          <div>
-            <div class="section-title">Partidos</div>
-            <div class="section-sub">Gestioná los partidos de cada fecha</div>
-          </div>
-          <button class="btn-action" onclick="toggleForm()">
-            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Nuevo partido
-          </button>
+          <div><div class="section-title">Partidos del Prode</div><div class="section-sub">Buscá y seleccioná los partidos que querés activar</div></div>
         </div>
 
-        <!-- FORM NUEVO PARTIDO -->
-        <div class="form-card" id="form-partido" style="display:none;">
-          <h3>➕ Agregar partido</h3>
-          <div class="form-grid">
-            <div class="form-field">
-              <label>Equipo local</label>
-              <input type="text" placeholder="Ej: Argentina" />
-            </div>
-            <div class="form-field">
-              <label>Equipo visitante</label>
-              <input type="text" placeholder="Ej: Chile" />
-            </div>
-          </div>
-          <div class="form-grid-3" style="margin-top:12px;">
-            <div class="form-field">
-              <label>Fecha y hora</label>
-              <input type="datetime-local" />
-            </div>
-            <div class="form-field">
-              <label>Fase</label>
-              <select>
-                <option>Grupos</option>
-                <option>Octavos</option>
-                <option>Cuartos</option>
-                <option>Semifinal</option>
-                <option>Final</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label>Grupo</label>
-              <select>
-                <option>A</option><option>B</option><option>C</option>
-                <option>D</option><option>E</option><option>F</option>
-              </select>
+        <!-- BUSCADOR DE PARTIDOS MUNDIAL -->
+        <div class="partido-selector">
+          <div class="selector-header">
+            <h3>⚽ Partidos del Mundial 2026</h3>
+            <div class="selector-filters" id="grupo-filters">
+              <button class="filter-btn active" onclick="filtrarGrupo('todos', this)">Todos</button>
+              <button class="filter-btn" onclick="filtrarGrupo('A', this)">Grupo A</button>
+              <button class="filter-btn" onclick="filtrarGrupo('B', this)">Grupo B</button>
+              <button class="filter-btn" onclick="filtrarGrupo('C', this)">Grupo C</button>
+              <button class="filter-btn" onclick="filtrarGrupo('D', this)">Grupo D</button>
+              <button class="filter-btn" onclick="filtrarGrupo('E', this)">Grupo E</button>
+              <button class="filter-btn" onclick="filtrarGrupo('F', this)">Grupo F</button>
+              <button class="filter-btn" onclick="filtrarGrupo('G', this)">Grupo G</button>
+              <button class="filter-btn" onclick="filtrarGrupo('H', this)">Grupo H</button>
+              <button class="filter-btn" onclick="filtrarGrupo('I', this)">Grupo I</button>
+              <button class="filter-btn" onclick="filtrarGrupo('J', this)">Grupo J</button>
+              <button class="filter-btn" onclick="filtrarGrupo('K', this)">Grupo K</button>
+              <button class="filter-btn" onclick="filtrarGrupo('L', this)">Grupo L</button>
             </div>
           </div>
-          <div class="form-actions">
-            <button class="btn-gold" style="flex:1;padding:10px;" onclick="toggleForm()">Guardar partido</button>
-            <button class="btn-cancel" onclick="toggleForm()">Cancelar</button>
+          <div class="selector-search">
+            <input type="text" placeholder="Buscar por equipo... ej: Argentina, Francia, Brasil" id="buscador-partidos" oninput="renderPartidos()" />
           </div>
+          <div class="selector-list" id="lista-partidos"></div>
         </div>
 
+        <!-- PARTIDOS ACTIVADOS -->
+        <div class="section-header" style="margin-top:4px;">
+          <div><div class="section-title">Partidos activados en el Prode</div><div class="section-sub" id="activados-count">0 partidos seleccionados</div></div>
+        </div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Partido</th>
-                <th>Fecha y hora</th>
-                <th>Fase</th>
-                <th>Estado</th>
-                <th>Pronósticos</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>🇦🇷 Argentina vs 🇨🇱 Chile</strong></td>
-                <td style="color:var(--muted)">Jue 19/06 · 16:00hs</td>
-                <td><span class="badge badge-gray">Grupo C</span></td>
-                <td><span class="badge badge-green"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>Abierto</span></td>
-                <td>38 / 47</td>
-                <td><button class="btn-sm btn-red-outline">Cerrar</button></td>
-              </tr>
-              <tr>
-                <td><strong>🇧🇷 Brasil vs 🇺🇾 Uruguay</strong></td>
-                <td style="color:var(--muted)">Jue 19/06 · 19:00hs</td>
-                <td><span class="badge badge-gray">Grupo D</span></td>
-                <td><span class="badge badge-green"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>Abierto</span></td>
-                <td>31 / 47</td>
-                <td><button class="btn-sm btn-red-outline">Cerrar</button></td>
-              </tr>
-              <tr>
-                <td><strong>🇫🇷 Francia vs 🇩🇪 Alemania</strong></td>
-                <td style="color:var(--muted)">Mar 17/06 · 13:00hs</td>
-                <td><span class="badge badge-gray">Grupo A</span></td>
-                <td><span class="badge badge-red">Cerrado</span></td>
-                <td>47 / 47</td>
-                <td><span style="font-size:12px;color:var(--muted)">—</span></td>
-              </tr>
-              <tr>
-                <td><strong>🇪🇸 España vs 🇵🇹 Portugal</strong></td>
-                <td style="color:var(--muted)">Vie 20/06 · 20:00hs</td>
-                <td><span class="badge badge-gray">Grupo B</span></td>
-                <td><span class="badge badge-gold">Programado</span></td>
-                <td>0 / 47</td>
-                <td><button class="btn-sm btn-green">Activar</button></td>
-              </tr>
+            <thead><tr><th>Partido</th><th>Fecha y hora</th><th>Fase</th><th>Estado</th><th>Pronósticos</th><th></th></tr></thead>
+            <tbody id="tabla-activados">
+              <tr><td colspan="6" class="empty-msg">Todavía no activaste ningún partido. Buscalos arriba 👆</td></tr>
             </tbody>
           </table>
         </div>
@@ -563,23 +265,11 @@
       <!-- RESULTADOS -->
       <div class="admin-screen" id="screen-resultados">
         <div class="section-header">
-          <div>
-            <div class="section-title">Cargar resultados</div>
-            <div class="section-sub">Al guardar se calculan los puntos automáticamente</div>
-          </div>
+          <div><div class="section-title">Cargar resultados</div><div class="section-sub">Al guardar se calculan los puntos automáticamente</div></div>
         </div>
-
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Partido</th>
-                <th>Estado</th>
-                <th>Resultado oficial</th>
-                <th>Puntos calculados</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Partido</th><th>Estado</th><th>Resultado oficial</th><th>Puntos calculados</th></tr></thead>
             <tbody>
               <tr>
                 <td>
@@ -600,17 +290,12 @@
                 <td><span class="badge badge-red">Cerrado</span></td>
                 <td id="res-fra-ale" style="color:var(--muted)">Pendiente</td>
                 <td id="pts-fra-ale" style="color:var(--muted)">—</td>
-                <td></td>
               </tr>
               <tr>
-                <td>
-                  <strong>🇦🇷 Argentina vs 🇨🇱 Chile</strong>
-                  <div style="font-size:11px;color:var(--muted);margin-top:2px;">Jue 19/06 · Grupo C</div>
-                </td>
+                <td><strong>🇦🇷 Argentina vs 🇨🇱 Chile</strong><div style="font-size:11px;color:var(--muted);margin-top:2px;">Jue 19/06 · Grupo C</div></td>
                 <td><span class="badge badge-green">Abierto</span></td>
                 <td style="color:var(--muted)">No terminó</td>
                 <td style="color:var(--muted)">—</td>
-                <td><span style="font-size:12px;color:var(--muted)">Esperando cierre</span></td>
               </tr>
             </tbody>
           </table>
@@ -620,71 +305,21 @@
       <!-- JUGADORES -->
       <div class="admin-screen" id="screen-jugadores">
         <div class="section-header">
-          <div>
-            <div class="section-title">Jugadores registrados</div>
-            <div class="section-sub">47 jugadores activos</div>
-          </div>
+          <div><div class="section-title">Jugadores registrados</div><div class="section-sub">47 jugadores activos</div></div>
           <button class="btn-action" style="background:none;border:1px solid var(--border);color:var(--text);">
-            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Exportar CSV
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar CSV
           </button>
         </div>
-        <div class="search-bar">
-          <input class="search-input" type="text" placeholder="Buscar por nombre o WhatsApp..." />
-        </div>
+        <div class="search-bar"><input class="search-input" type="text" placeholder="Buscar por nombre o WhatsApp..." /></div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Jugador</th>
-                <th>WhatsApp</th>
-                <th>Registro</th>
-                <th>Puntaje</th>
-                <th>Pronósticos</th>
-                <th>Premio</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Jugador</th><th>WhatsApp</th><th>Registro</th><th>Puntaje</th><th>Pronósticos</th><th>Premio</th></tr></thead>
             <tbody>
-              <tr>
-                <td><div class="user-info"><div class="avatar" style="background:#1a1500;color:var(--gold)">MR</div><div><div style="font-weight:600;">Marcos R.</div><div style="font-size:11px;color:var(--muted)">Marcos Rodríguez</div></div></div></td>
-                <td style="color:var(--muted)">+54 9 2901 556677</td>
-                <td style="color:var(--muted)">12/06</td>
-                <td><strong style="color:var(--gold)">24 pts</strong></td>
-                <td>12/12</td>
-                <td><span class="badge badge-red">Pendiente</span></td>
-              </tr>
-              <tr>
-                <td><div class="user-info"><div class="avatar">SL</div><div><div style="font-weight:600;">Sofía L.</div><div style="font-size:11px;color:var(--muted)">Sofía López</div></div></div></td>
-                <td style="color:var(--muted)">+54 9 2901 112233</td>
-                <td style="color:var(--muted)">12/06</td>
-                <td><strong style="color:var(--gold)">22 pts</strong></td>
-                <td>11/12</td>
-                <td><span class="badge badge-green">Entregado</span></td>
-              </tr>
-              <tr>
-                <td><div class="user-info"><div class="avatar">JU</div><div><div style="font-weight:600;">Julián U.</div><div style="font-size:11px;color:var(--muted)">Julián Uribe</div></div></div></td>
-                <td style="color:var(--muted)">+54 9 2901 569594</td>
-                <td style="color:var(--muted)">12/06</td>
-                <td><strong style="color:var(--gold)">19 pts</strong></td>
-                <td>12/12</td>
-                <td><span class="badge badge-gray">Sin premio</span></td>
-              </tr>
-              <tr>
-                <td><div class="user-info"><div class="avatar">FG</div>Franco G.</div></td>
-                <td style="color:var(--muted)">+54 9 2901 998877</td>
-                <td style="color:var(--muted)">13/06</td>
-                <td><strong style="color:var(--gold)">17 pts</strong></td>
-                <td>10/12</td>
-                <td><span class="badge badge-gray">Sin premio</span></td>
-              </tr>
-              <tr>
-                <td><div class="user-info"><div class="avatar">AP</div>Ana P.</div></td>
-                <td style="color:var(--muted)">+54 9 2901 445566</td>
-                <td style="color:var(--muted)">13/06</td>
-                <td><strong style="color:var(--gold)">12 pts</strong></td>
-                <td>9/12</td>
-                <td><span class="badge badge-gold">Canjeado</span></td>
-              </tr>
+              <tr><td><div class="user-info"><div class="avatar" style="background:#1a1500;color:var(--gold)">MR</div><div><div style="font-weight:600">Marcos R.</div><div style="font-size:11px;color:var(--muted)">Marcos Rodríguez</div></div></div></td><td style="color:var(--muted)">+54 9 2901 556677</td><td style="color:var(--muted)">12/06</td><td><strong style="color:var(--gold)">24 pts</strong></td><td>12/12</td><td><span class="badge badge-red">Pendiente</span></td></tr>
+              <tr><td><div class="user-info"><div class="avatar">SL</div><div><div style="font-weight:600">Sofía L.</div><div style="font-size:11px;color:var(--muted)">Sofía López</div></div></div></td><td style="color:var(--muted)">+54 9 2901 112233</td><td style="color:var(--muted)">12/06</td><td><strong style="color:var(--gold)">22 pts</strong></td><td>11/12</td><td><span class="badge badge-green">Entregado</span></td></tr>
+              <tr><td><div class="user-info"><div class="avatar">JU</div><div><div style="font-weight:600">Julián U.</div><div style="font-size:11px;color:var(--muted)">Julián Uribe</div></div></div></td><td style="color:var(--muted)">+54 9 2901 569594</td><td style="color:var(--muted)">12/06</td><td><strong style="color:var(--gold)">19 pts</strong></td><td>12/12</td><td><span class="badge badge-gray">Sin premio</span></td></tr>
+              <tr><td><div class="user-info"><div class="avatar">FG</div>Franco G.</div></td><td style="color:var(--muted)">+54 9 2901 998877</td><td style="color:var(--muted)">13/06</td><td><strong style="color:var(--gold)">17 pts</strong></td><td>10/12</td><td><span class="badge badge-gray">Sin premio</span></td></tr>
+              <tr><td><div class="user-info"><div class="avatar">AP</div>Ana P.</div></td><td style="color:var(--muted)">+54 9 2901 445566</td><td style="color:var(--muted)">13/06</td><td><strong style="color:var(--gold)">12 pts</strong></td><td>9/12</td><td><span class="badge badge-gold">Canjeado</span></td></tr>
             </tbody>
           </table>
         </div>
@@ -693,56 +328,20 @@
       <!-- PREMIOS -->
       <div class="admin-screen" id="screen-premios">
         <div class="section-header">
-          <div>
-            <div class="section-title">Premios</div>
-            <div class="section-sub">Asigná y gestioná los premios de cada fecha</div>
-          </div>
-          <button class="btn-action" onclick="asignarPremio()">
-            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Asignar premio
-          </button>
+          <div><div class="section-title">Premios</div><div class="section-sub">Asigná y gestioná los premios de cada fecha</div></div>
         </div>
         <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
-          <div class="stat-card">
-            <div class="stat-label">Premios entregados</div>
-            <div class="stat-num">9</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Sin canjear</div>
-            <div class="stat-num" style="color:var(--red-l)">3</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Canjeados</div>
-            <div class="stat-num" style="color:var(--green-l)">6</div>
-          </div>
+          <div class="stat-card"><div class="stat-label">Entregados</div><div class="stat-num">9</div></div>
+          <div class="stat-card"><div class="stat-label">Sin canjear</div><div class="stat-num" style="color:var(--red-l)">3</div></div>
+          <div class="stat-card"><div class="stat-label">Canjeados</div><div class="stat-num" style="color:var(--green-l)">6</div></div>
         </div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr><th>Jugador</th><th>Premio</th><th>Fecha</th><th>Estado</th><th>Acción</th></tr>
-            </thead>
+            <thead><tr><th>Jugador</th><th>Premio</th><th>Fecha</th><th>Estado</th><th>Acción</th></tr></thead>
             <tbody>
-              <tr>
-                <td><div class="user-info"><div class="avatar" style="background:#1a1500;color:var(--gold)">MR</div>Marcos R.</div></td>
-                <td>🛵 Envío gratis</td>
-                <td style="color:var(--muted)">17/06 · Fecha 3</td>
-                <td><span class="badge badge-red">Pendiente</span></td>
-                <td><button class="btn-sm btn-green" onclick="marcarCanjeado(this)">Marcar canjeado</button></td>
-              </tr>
-              <tr>
-                <td><div class="user-info"><div class="avatar">SL</div>Sofía L.</div></td>
-                <td>🍔 Combo gratis</td>
-                <td style="color:var(--muted)">10/06 · Fecha 2</td>
-                <td><span class="badge badge-gold">Canjeado</span></td>
-                <td><span style="font-size:12px;color:var(--muted)">—</span></td>
-              </tr>
-              <tr>
-                <td><div class="user-info"><div class="avatar">AP</div>Ana P.</div></td>
-                <td>🎁 20% descuento</td>
-                <td style="color:var(--muted)">03/06 · Fecha 1</td>
-                <td><span class="badge badge-gold">Canjeado</span></td>
-                <td><span style="font-size:12px;color:var(--muted)">—</span></td>
-              </tr>
+              <tr><td><div class="user-info"><div class="avatar" style="background:#1a1500;color:var(--gold)">MR</div>Marcos R.</div></td><td>🛵 Envío gratis</td><td style="color:var(--muted)">17/06 · Fecha 3</td><td><span class="badge badge-red">Pendiente</span></td><td><button class="btn-sm btn-green" onclick="marcarCanjeado(this)">Marcar canjeado</button></td></tr>
+              <tr><td><div class="user-info"><div class="avatar">SL</div>Sofía L.</div></td><td>🍔 Combo gratis</td><td style="color:var(--muted)">10/06 · Fecha 2</td><td><span class="badge badge-gold">Canjeado</span></td><td><span style="font-size:12px;color:var(--muted)">—</span></td></tr>
+              <tr><td><div class="user-info"><div class="avatar">AP</div>Ana P.</div></td><td>🎁 20% descuento</td><td style="color:var(--muted)">03/06 · Fecha 1</td><td><span class="badge badge-gold">Canjeado</span></td><td><span style="font-size:12px;color:var(--muted)">—</span></td></tr>
             </tbody>
           </table>
         </div>
@@ -750,40 +349,20 @@
 
       <!-- NOTIFICACIONES -->
       <div class="admin-screen" id="screen-notif">
-        <div class="section-header">
-          <div>
-            <div class="section-title">Notificaciones</div>
-            <div class="section-sub">Enviá mensajes a los jugadores vía WhatsApp</div>
-          </div>
-        </div>
+        <div class="section-header"><div><div class="section-title">Notificaciones</div><div class="section-sub">Enviá mensajes a los jugadores vía WhatsApp</div></div></div>
         <div class="notif-card">
           <h3>⏰ Recordatorio de fecha</h3>
           <p>Avisá a todos que la fecha está por cerrar</p>
-          <div class="notif-preview">
-            🏆 <strong>Prode La Cocina · Mundial 2026</strong><br><br>
-            ¡Che! Faltan <strong>2 horas</strong> para que cierre la Fecha 3.<br>
-            ¿Ya cargaste tus pronósticos? No te quedes afuera 👀<br><br>
-            👉 lacocinaushuaia.com.ar/prode
-          </div>
-          <div class="notif-stats">
-            <div class="notif-stat">Destinatarios: <span>47 jugadores</span></div>
-            <div class="notif-stat">Sin pronóstico hoy: <span>9 jugadores</span></div>
-          </div>
+          <div class="notif-preview">🏆 <strong>Prode La Cocina · Mundial 2026</strong><br><br>¡Che! Faltan <strong>2 horas</strong> para que cierre la Fecha 3.<br>¿Ya cargaste tus pronósticos? No te quedes afuera 👀<br><br>👉 lacocinaushuaia.com.ar/prode</div>
           <div style="display:flex;gap:10px;margin-top:16px;">
-            <button class="btn-action" style="flex:1;justify-content:center;" onclick="alert('✅ Notificación enviada a 47 jugadores')">Enviar a todos</button>
-            <button class="btn-action" style="background:#0a2a1a;color:var(--green-l);border:1px solid #1a5a38;justify-content:center;" onclick="alert('✅ Enviado a 9 jugadores sin pronóstico')">Solo sin pronóstico</button>
+            <button class="btn-action" style="flex:1;justify-content:center;" onclick="alert('✅ Enviado a 47 jugadores')">Enviar a todos</button>
+            <button class="btn-action" style="background:#0a2a1a;color:var(--green-l);border:1px solid #1a5a38;justify-content:center;" onclick="alert('✅ Enviado a 9 sin pronóstico')">Solo sin pronóstico</button>
           </div>
         </div>
-
         <div class="notif-card">
           <h3>🎁 Anuncio de ganador</h3>
-          <p>Avisá al ganador de la fecha que tiene un premio</p>
-          <div class="notif-preview">
-            🏆 <strong>Prode La Cocina · Mundial 2026</strong><br><br>
-            ¡<strong>Marcos R.</strong>, ganaste la Fecha 3! 🎉<br>
-            Tu premio: <strong>🛵 Envío gratis</strong> en tu próximo pedido.<br><br>
-            Válido hasta el 25/06. Avisanos por acá para canjearlo 👇
-          </div>
+          <p>Avisá al ganador que tiene un premio</p>
+          <div class="notif-preview">🏆 <strong>Prode La Cocina · Mundial 2026</strong><br><br>¡<strong>Marcos R.</strong>, ganaste la Fecha 3! 🎉<br>Tu premio: <strong>🛵 Envío gratis</strong> en tu próximo pedido.<br><br>Válido hasta el 25/06. Avisanos por acá para canjearlo 👇</div>
           <button class="btn-action" style="margin-top:16px;width:100%;justify-content:center;" onclick="alert('✅ Premio enviado a Marcos R.')">Enviar al ganador</button>
         </div>
       </div>
@@ -793,49 +372,211 @@
 </div>
 
 <script>
-  function loginAdmin() {
-    const user = document.getElementById('inp-user').value;
-    const pass = document.getElementById('inp-pass').value;
-    if (!user || !pass) { alert('Ingresá usuario y contraseña'); return; }
-    document.getElementById('admin-login').style.display = 'none';
-    document.getElementById('admin-layout').classList.add('active');
+// ── TODOS LOS PARTIDOS MUNDIAL 2026 ──
+const PARTIDOS_MUNDIAL = [
+  // GRUPO A
+  {id:1,local:"🇲🇽 México",visitante:"🇧🇴 Bolivia",grupo:"A",fase:"Grupos",fecha:"11/06",hora:"13:00"},
+  {id:2,local:"🇺🇸 Estados Unidos",visitante:"🇧🇫 Burkina Faso",grupo:"A",fase:"Grupos",fecha:"12/06",hora:"16:00"},
+  {id:3,local:"🇲🇽 México",visitante:"🇺🇸 Estados Unidos",grupo:"A",fase:"Grupos",fecha:"19/06",hora:"20:00"},
+  {id:4,local:"🇧🇴 Bolivia",visitante:"🇧🇫 Burkina Faso",grupo:"A",fase:"Grupos",fecha:"19/06",hora:"16:00"},
+  {id:5,local:"🇺🇸 Estados Unidos",visitante:"🇧🇴 Bolivia",grupo:"A",fase:"Grupos",fecha:"25/06",hora:"18:00"},
+  {id:6,local:"🇧🇫 Burkina Faso",visitante:"🇲🇽 México",grupo:"A",fase:"Grupos",fecha:"25/06",hora:"18:00"},
+  // GRUPO B
+  {id:7,local:"🇦🇷 Argentina",visitante:"🇨🇱 Chile",grupo:"B",fase:"Grupos",fecha:"12/06",hora:"19:00"},
+  {id:8,local:"🇵🇪 Perú",visitante:"🇦🇴 Angola",grupo:"B",fase:"Grupos",fecha:"12/06",hora:"13:00"},
+  {id:9,local:"🇦🇷 Argentina",visitante:"🇵🇪 Perú",grupo:"B",fase:"Grupos",fecha:"19/06",hora:"20:00"},
+  {id:10,local:"🇨🇱 Chile",visitante:"🇦🇴 Angola",grupo:"B",fase:"Grupos",fecha:"19/06",hora:"13:00"},
+  {id:11,local:"🇦🇴 Angola",visitante:"🇦🇷 Argentina",grupo:"B",fase:"Grupos",fecha:"25/06",hora:"20:00"},
+  {id:12,local:"🇨🇱 Chile",visitante:"🇵🇪 Perú",grupo:"B",fase:"Grupos",fecha:"25/06",hora:"20:00"},
+  // GRUPO C
+  {id:13,local:"🇧🇷 Brasil",visitante:"🇺🇾 Uruguay",grupo:"C",fase:"Grupos",fecha:"13/06",hora:"19:00"},
+  {id:14,local:"🇨🇴 Colombia",visitante:"🇨🇲 Camerún",grupo:"C",fase:"Grupos",fecha:"13/06",hora:"13:00"},
+  {id:15,local:"🇧🇷 Brasil",visitante:"🇨🇴 Colombia",grupo:"C",fase:"Grupos",fecha:"20/06",hora:"20:00"},
+  {id:16,local:"🇺🇾 Uruguay",visitante:"🇨🇲 Camerún",grupo:"C",fase:"Grupos",fecha:"20/06",hora:"16:00"},
+  {id:17,local:"🇨🇲 Camerún",visitante:"🇧🇷 Brasil",grupo:"C",fase:"Grupos",fecha:"26/06",hora:"18:00"},
+  {id:18,local:"🇨🇴 Colombia",visitante:"🇺🇾 Uruguay",grupo:"C",fase:"Grupos",fecha:"26/06",hora:"18:00"},
+  // GRUPO D
+  {id:19,local:"🇫🇷 Francia",visitante:"🇩🇿 Argelia",grupo:"D",fase:"Grupos",fecha:"14/06",hora:"16:00"},
+  {id:20,local:"🇩🇪 Alemania",visitante:"🇯🇵 Japón",grupo:"D",fase:"Grupos",fecha:"14/06",hora:"13:00"},
+  {id:21,local:"🇫🇷 Francia",visitante:"🇩🇪 Alemania",grupo:"D",fase:"Grupos",fecha:"21/06",hora:"20:00"},
+  {id:22,local:"🇩🇿 Argelia",visitante:"🇯🇵 Japón",grupo:"D",fase:"Grupos",fecha:"21/06",hora:"16:00"},
+  {id:23,local:"🇯🇵 Japón",visitante:"🇫🇷 Francia",grupo:"D",fase:"Grupos",fecha:"27/06",hora:"18:00"},
+  {id:24,local:"🇩🇪 Alemania",visitante:"🇩🇿 Argelia",grupo:"D",fase:"Grupos",fecha:"27/06",hora:"18:00"},
+  // GRUPO E
+  {id:25,local:"🇪🇸 España",visitante:"🇲🇦 Marruecos",grupo:"E",fase:"Grupos",fecha:"14/06",hora:"19:00"},
+  {id:26,local:"🇵🇹 Portugal",visitante:"🇹🇿 Tanzania",grupo:"E",fase:"Grupos",fecha:"15/06",hora:"13:00"},
+  {id:27,local:"🇪🇸 España",visitante:"🇵🇹 Portugal",grupo:"E",fase:"Grupos",fecha:"22/06",hora:"20:00"},
+  {id:28,local:"🇲🇦 Marruecos",visitante:"🇹🇿 Tanzania",grupo:"E",fase:"Grupos",fecha:"22/06",hora:"16:00"},
+  {id:29,local:"🇹🇿 Tanzania",visitante:"🇪🇸 España",grupo:"E",fase:"Grupos",fecha:"28/06",hora:"18:00"},
+  {id:30,local:"🇵🇹 Portugal",visitante:"🇲🇦 Marruecos",grupo:"E",fase:"Grupos",fecha:"28/06",hora:"18:00"},
+  // GRUPO F
+  {id:31,local:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",visitante:"🇸🇳 Senegal",grupo:"F",fase:"Grupos",fecha:"15/06",hora:"16:00"},
+  {id:32,local:"🇳🇱 Países Bajos",visitante:"🇧🇦 Bosnia",grupo:"F",fase:"Grupos",fecha:"15/06",hora:"19:00"},
+  {id:33,local:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",visitante:"🇳🇱 Países Bajos",grupo:"F",fase:"Grupos",fecha:"22/06",hora:"20:00"},
+  {id:34,local:"🇸🇳 Senegal",visitante:"🇧🇦 Bosnia",grupo:"F",fase:"Grupos",fecha:"22/06",hora:"13:00"},
+  {id:35,local:"🇧🇦 Bosnia",visitante:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",grupo:"F",fase:"Grupos",fecha:"28/06",hora:"20:00"},
+  {id:36,local:"🇳🇱 Países Bajos",visitante:"🇸🇳 Senegal",grupo:"F",fase:"Grupos",fecha:"28/06",hora:"20:00"},
+  // GRUPO G
+  {id:37,local:"🇮🇹 Italia",visitante:"🇿🇦 Sudáfrica",grupo:"G",fase:"Grupos",fecha:"16/06",hora:"13:00"},
+  {id:38,local:"🇧🇪 Bélgica",visitante:"🇪🇨 Ecuador",grupo:"G",fase:"Grupos",fecha:"16/06",hora:"16:00"},
+  {id:39,local:"🇮🇹 Italia",visitante:"🇧🇪 Bélgica",grupo:"G",fase:"Grupos",fecha:"23/06",hora:"20:00"},
+  {id:40,local:"🇿🇦 Sudáfrica",visitante:"🇪🇨 Ecuador",grupo:"G",fase:"Grupos",fecha:"23/06",hora:"16:00"},
+  {id:41,local:"🇪🇨 Ecuador",visitante:"🇮🇹 Italia",grupo:"G",fase:"Grupos",fecha:"29/06",hora:"18:00"},
+  {id:42,local:"🇧🇪 Bélgica",visitante:"🇿🇦 Sudáfrica",grupo:"G",fase:"Grupos",fecha:"29/06",hora:"18:00"},
+  // GRUPO H
+  {id:43,local:"🇰🇷 Corea del Sur",visitante:"🇬🇭 Ghana",grupo:"H",fase:"Grupos",fecha:"16/06",hora:"19:00"},
+  {id:44,local:"🇦🇺 Australia",visitante:"🇮🇳 India",grupo:"H",fase:"Grupos",fecha:"17/06",hora:"13:00"},
+  {id:45,local:"🇰🇷 Corea del Sur",visitante:"🇦🇺 Australia",grupo:"H",fase:"Grupos",fecha:"23/06",hora:"20:00"},
+  {id:46,local:"🇬🇭 Ghana",visitante:"🇮🇳 India",grupo:"H",fase:"Grupos",fecha:"23/06",hora:"13:00"},
+  {id:47,local:"🇮🇳 India",visitante:"🇰🇷 Corea del Sur",grupo:"H",fase:"Grupos",fecha:"29/06",hora:"20:00"},
+  {id:48,local:"🇦🇺 Australia",visitante:"🇬🇭 Ghana",grupo:"H",fase:"Grupos",fecha:"29/06",hora:"20:00"},
+  // GRUPO I
+  {id:49,local:"🇲🇽 México 2",visitante:"🇵🇦 Panamá",grupo:"I",fase:"Grupos",fecha:"17/06",hora:"16:00"},
+  {id:50,local:"🇻🇪 Venezuela",visitante:"🇳🇬 Nigeria",grupo:"I",fase:"Grupos",fecha:"17/06",hora:"19:00"},
+  {id:51,local:"🇲🇽 México 2",visitante:"🇻🇪 Venezuela",grupo:"I",fase:"Grupos",fecha:"24/06",hora:"20:00"},
+  {id:52,local:"🇵🇦 Panamá",visitante:"🇳🇬 Nigeria",grupo:"I",fase:"Grupos",fecha:"24/06",hora:"16:00"},
+  {id:53,local:"🇳🇬 Nigeria",visitante:"🇲🇽 México 2",grupo:"I",fase:"Grupos",fecha:"30/06",hora:"18:00"},
+  {id:54,local:"🇻🇪 Venezuela",visitante:"🇵🇦 Panamá",grupo:"I",fase:"Grupos",fecha:"30/06",hora:"18:00"},
+  // GRUPO J
+  {id:55,local:"🇯🇲 Jamaica",visitante:"🇸🇦 Arabia Saudita",grupo:"J",fase:"Grupos",fecha:"18/06",hora:"13:00"},
+  {id:56,local:"🇹🇷 Turquía",visitante:"🇨🇿 República Checa",grupo:"J",fase:"Grupos",fecha:"18/06",hora:"16:00"},
+  {id:57,local:"🇯🇲 Jamaica",visitante:"🇹🇷 Turquía",grupo:"J",fase:"Grupos",fecha:"25/06",hora:"20:00"},
+  {id:58,local:"🇸🇦 Arabia Saudita",visitante:"🇨🇿 República Checa",grupo:"J",fase:"Grupos",fecha:"25/06",hora:"16:00"},
+  {id:59,local:"🇨🇿 República Checa",visitante:"🇯🇲 Jamaica",grupo:"J",fase:"Grupos",fecha:"01/07",hora:"18:00"},
+  {id:60,local:"🇹🇷 Turquía",visitante:"🇸🇦 Arabia Saudita",grupo:"J",fase:"Grupos",fecha:"01/07",hora:"18:00"},
+  // GRUPO K
+  {id:61,local:"🇵🇱 Polonia",visitante:"🇨🇮 Costa de Marfil",grupo:"K",fase:"Grupos",fecha:"18/06",hora:"19:00"},
+  {id:62,local:"🇺🇦 Ucrania",visitante:"🇷🇸 Serbia",grupo:"K",fase:"Grupos",fecha:"19/06",hora:"13:00"},
+  {id:63,local:"🇵🇱 Polonia",visitante:"🇺🇦 Ucrania",grupo:"K",fase:"Grupos",fecha:"26/06",hora:"20:00"},
+  {id:64,local:"🇨🇮 Costa de Marfil",visitante:"🇷🇸 Serbia",grupo:"K",fase:"Grupos",fecha:"26/06",hora:"16:00"},
+  {id:65,local:"🇷🇸 Serbia",visitante:"🇵🇱 Polonia",grupo:"K",fase:"Grupos",fecha:"02/07",hora:"18:00"},
+  {id:66,local:"🇺🇦 Ucrania",visitante:"🇨🇮 Costa de Marfil",grupo:"K",fase:"Grupos",fecha:"02/07",hora:"18:00"},
+  // GRUPO L
+  {id:67,local:"🇲🇽 México 3",visitante:"🇮🇷 Irán",grupo:"L",fase:"Grupos",fecha:"20/06",hora:"13:00"},
+  {id:68,local:"🇨🇦 Canadá",visitante:"🇸🇮 Eslovenia",grupo:"L",fase:"Grupos",fecha:"20/06",hora:"16:00"},
+  {id:69,local:"🇲🇽 México 3",visitante:"🇨🇦 Canadá",grupo:"L",fase:"Grupos",fecha:"27/06",hora:"20:00"},
+  {id:70,local:"🇮🇷 Irán",visitante:"🇸🇮 Eslovenia",grupo:"L",fase:"Grupos",fecha:"27/06",hora:"16:00"},
+  {id:71,local:"🇸🇮 Eslovenia",visitante:"🇲🇽 México 3",grupo:"L",fase:"Grupos",fecha:"03/07",hora:"18:00"},
+  {id:72,local:"🇨🇦 Canadá",visitante:"🇮🇷 Irán",grupo:"L",fase:"Grupos",fecha:"03/07",hora:"18:00"},
+];
+
+let grupoActivo = 'todos';
+let partidosActivados = [];
+
+function loginAdmin() {
+  const user = document.getElementById('inp-user').value;
+  const pass = document.getElementById('inp-pass').value;
+  if (!user || !pass) { alert('Ingresá usuario y contraseña'); return; }
+  document.getElementById('admin-login').style.display = 'none';
+  document.getElementById('admin-layout').classList.add('active');
+  renderPartidos();
+}
+
+function logoutAdmin() {
+  document.getElementById('admin-login').style.display = 'flex';
+  document.getElementById('admin-layout').classList.remove('active');
+}
+
+function adminScreen(name, btn) {
+  document.querySelectorAll('.admin-screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'partidos') renderPartidos();
+}
+
+function filtrarGrupo(grupo, btn) {
+  grupoActivo = grupo;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPartidos();
+}
+
+function renderPartidos() {
+  const q = (document.getElementById('buscador-partidos')?.value || '').toLowerCase();
+  const lista = document.getElementById('lista-partidos');
+  if (!lista) return;
+
+  const filtrados = PARTIDOS_MUNDIAL.filter(p => {
+    const matchGrupo = grupoActivo === 'todos' || p.grupo === grupoActivo;
+    const matchBusq = !q || p.local.toLowerCase().includes(q) || p.visitante.toLowerCase().includes(q);
+    return matchGrupo && matchBusq;
+  });
+
+  if (filtrados.length === 0) {
+    lista.innerHTML = '<div class="empty-msg">No se encontraron partidos con ese criterio</div>';
+    return;
   }
 
-  function logoutAdmin() {
-    document.getElementById('admin-login').style.display = 'flex';
-    document.getElementById('admin-layout').classList.remove('active');
+  lista.innerHTML = filtrados.map(p => {
+    const yaActivado = partidosActivados.find(a => a.id === p.id);
+    return `<div class="partido-row ${yaActivado ? 'added' : ''}" id="row-${p.id}">
+      <div class="partido-match">
+        <div>
+          <div class="partido-teams">${p.local} vs ${p.visitante}</div>
+          <div class="partido-meta">Grupo ${p.grupo} · ${p.fecha} · ${p.hora}hs</div>
+        </div>
+      </div>
+      <div class="partido-right">
+        <span class="grupo-tag">Grupo ${p.grupo}</span>
+        ${yaActivado
+          ? '<span class="btn-added">✓ Activado</span>'
+          : `<button class="btn-add" onclick="activarPartido(${p.id})">+ Activar</button>`
+        }
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function activarPartido(id) {
+  const p = PARTIDOS_MUNDIAL.find(x => x.id === id);
+  if (!p || partidosActivados.find(a => a.id === id)) return;
+  partidosActivados.push(p);
+  renderPartidos();
+  renderTablaActivados();
+}
+
+function renderTablaActivados() {
+  const tbody = document.getElementById('tabla-activados');
+  const count = document.getElementById('activados-count');
+  count.textContent = `${partidosActivados.length} partido${partidosActivados.length !== 1 ? 's' : ''} seleccionado${partidosActivados.length !== 1 ? 's' : ''}`;
+
+  if (partidosActivados.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-msg">Todavía no activaste ningún partido. Buscalos arriba 👆</td></tr>';
+    return;
   }
 
-  function adminScreen(name, btn) {
-    document.querySelectorAll('.admin-screen').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
-    document.getElementById('screen-' + name).classList.add('active');
-    btn.classList.add('active');
-  }
+  tbody.innerHTML = partidosActivados.map(p => `
+    <tr>
+      <td><strong>${p.local} vs ${p.visitante}</strong></td>
+      <td style="color:var(--muted)">${p.fecha} · ${p.hora}hs</td>
+      <td><span class="badge badge-gray">Grupo ${p.grupo}</span></td>
+      <td><span class="badge badge-green">Abierto</span></td>
+      <td>0 / 47</td>
+      <td><button class="btn-sm btn-red-outline" onclick="quitarPartido(${p.id})">Quitar</button></td>
+    </tr>
+  `).join('');
+}
 
-  function toggleForm() {
-    const f = document.getElementById('form-partido');
-    f.style.display = f.style.display === 'none' ? 'block' : 'none';
-  }
+function quitarPartido(id) {
+  partidosActivados = partidosActivados.filter(p => p.id !== id);
+  renderPartidos();
+  renderTablaActivados();
+}
 
-  function confirmarResultado(id) {
-    document.getElementById('res-' + id).textContent = '1 - 1';
-    document.getElementById('res-' + id).style.color = 'var(--green-l)';
-    document.getElementById('pts-' + id).textContent = 'Calculados ✓';
-    document.getElementById('pts-' + id).style.color = 'var(--green-l)';
-    document.getElementById('form-' + id).style.display = 'none';
-    alert('✅ Puntos calculados para los 47 jugadores');
-  }
+function confirmarResultado(id) {
+  document.getElementById('res-' + id).textContent = '1 - 1';
+  document.getElementById('res-' + id).style.color = 'var(--green-l)';
+  document.getElementById('pts-' + id).textContent = 'Calculados ✓';
+  document.getElementById('pts-' + id).style.color = 'var(--green-l)';
+  document.getElementById('form-' + id).style.display = 'none';
+  alert('✅ Puntos calculados para los 47 jugadores');
+}
 
-  function marcarCanjeado(btn) {
-    const td = btn.closest('td').previousElementSibling;
-    td.innerHTML = '<span class="badge badge-gold">Canjeado</span>';
-    btn.closest('td').innerHTML = '<span style="font-size:12px;color:var(--muted)">—</span>';
-  }
-
-  function asignarPremio() {
-    alert('🎁 Próximamente: selector de jugador y tipo de premio');
-  }
+function marcarCanjeado(btn) {
+  btn.closest('td').previousElementSibling.innerHTML = '<span class="badge badge-gold">Canjeado</span>';
+  btn.closest('td').innerHTML = '<span style="font-size:12px;color:var(--muted)">—</span>';
+}
 </script>
 </body>
 </html>
