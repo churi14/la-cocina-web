@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
+import ProdeAuth from './ProdeAuth'
 
 type Screen = 'home' | 'jugar' | 'ranking'
 type TabPartidos = 'pendientes' | 'completados'
@@ -77,9 +78,6 @@ export default function ProdePage() {
   const [tendencias, setTendencias] = useState(0)
   const [countdown, setCountdown] = useState(diasHastaInicio())
   const [loading, setLoading] = useState(false)
-  const [nombre, setNombre] = useState('')
-  const [apellido, setApellido] = useState('')
-  const [telefono, setTelefono] = useState('')
 
   // Countdown
   useEffect(() => {
@@ -134,26 +132,7 @@ export default function ProdePage() {
     }
   }, [])
 
-  async function registrar() {
-    if (!nombre.trim() || !apellido.trim() || !telefono.trim()) { alert('Completá todos los campos'); return }
-    setLoading(true)
-    const { data: existente } = await supabase.from('usuarios').select('*').eq('telefono', telefono.trim()).single()
-    if (existente) {
-      setUsuario(existente)
-      localStorage.setItem('prode_usuario', JSON.stringify(existente))
-      await cargarDatos(existente.id)
-      setScreen('home')
-      setLoading(false)
-      return
-    }
-    const { data, error } = await supabase.from('usuarios').insert({ nombre: nombre.trim(), apellido: apellido.trim(), telefono: telefono.trim() }).select().single()
-    setLoading(false)
-    if (error) { alert('Error al registrarte'); return }
-    setUsuario(data)
-    localStorage.setItem('prode_usuario', JSON.stringify(data))
-    await cargarDatos(data.id)
-    setScreen('home')
-  }
+
 
   // Agrupar partidos por fecha
   const partidosPendientes = partidos.filter(p => p.estado === 'abierto' || p.estado === 'pendiente' || p.estado === 'en_juego')
@@ -172,67 +151,13 @@ export default function ProdePage() {
 
   const c = { bg: '#f5f5f5', white: '#ffffff', dark: '#1a1a1a', gold: '#c9a84c', muted: '#888', border: '#e8e8e8', green: '#22c55e', red: '#ef4444', blue: '#3b82f6' }
 
-  // ── LOGIN ──
+  // ── AUTH ──
   if (!usuario) return (
-    <div style={{ background: c.bg, minHeight: '100vh', fontFamily: 'var(--font-sans), sans-serif', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{ width: '100%', maxWidth: 420, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        {/* Header */}
-        <div style={{ background: c.dark, padding: '20px 20px 28px', textAlign: 'center' }}>
-          <div style={{ fontSize: 11, color: '#c9a84c', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>La Cocina Ushuaia</div>
-          <div style={{ fontSize: 28, fontWeight: 800, color: '#fff', lineHeight: 1.1 }}>Prode Mundial 2026</div>
-          {countdown && (
-            <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center', gap: 8 }}>
-              {[{ n: countdown.dias, l: 'D' }, { n: countdown.horas, l: 'H' }, { n: countdown.mins, l: 'M' }, { n: countdown.segs, l: 'S' }].map(({ n, l }) => (
-                <div key={l} style={{ background: '#fff', borderRadius: 10, padding: '8px 12px', minWidth: 52, textAlign: 'center' }}>
-                  <div style={{ fontSize: 22, fontWeight: 800, color: c.dark, lineHeight: 1 }}>{String(n).padStart(2, '0')}</div>
-                  <div style={{ fontSize: 10, color: c.muted, fontWeight: 600 }}>{l}</div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Premios */}
-        <div style={{ padding: '20px 16px 0' }}>
-          <div style={{ fontSize: 18, fontWeight: 800, color: c.dark, marginBottom: 4 }}>Premios</div>
-          <div style={{ fontSize: 12, color: c.muted, marginBottom: 12 }}>Ganá premios reales en La Cocina</div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 20 }}>
-            <div style={{ background: c.white, borderRadius: 16, padding: 16, border: `1px solid ${c.border}` }}>
-              <div style={{ fontSize: 11, color: c.muted, fontWeight: 600 }}>Premio por fecha</div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: c.dark, marginTop: 4 }}>Envío gratis</div>
-              <div style={{ fontSize: 11, color: c.muted, marginTop: 4 }}>Para el mejor de cada fecha</div>
-              <div style={{ fontSize: 28, marginTop: 8 }}>🛵</div>
-            </div>
-            <div style={{ background: c.white, borderRadius: 16, padding: 16, border: `1px solid ${c.border}` }}>
-              <div style={{ fontSize: 11, color: c.muted, fontWeight: 600 }}>Premio final</div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: c.dark, marginTop: 4 }}>Combo gratis</div>
-              <div style={{ fontSize: 11, color: c.muted, marginTop: 4 }}>Para el mejor del ranking</div>
-              <div style={{ fontSize: 28, marginTop: 8 }}>🏆</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Form */}
-        <div style={{ padding: '0 16px 32px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ fontSize: 16, fontWeight: 800, color: c.dark }}>Registrate gratis</div>
-          {[
-            { label: 'Nombre', val: nombre, set: setNombre, ph: 'Ej: Martín' },
-            { label: 'Apellido', val: apellido, set: setApellido, ph: 'Ej: García' },
-            { label: 'WhatsApp', val: telefono, set: setTelefono, ph: '+54 9 2901 123456' },
-          ].map(f => (
-            <div key={f.label} style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-              <label style={{ fontSize: 12, color: c.muted, fontWeight: 600 }}>{f.label}</label>
-              <input value={f.val} onChange={e => f.set(e.target.value)} placeholder={f.ph}
-                style={{ background: c.white, border: `1px solid ${c.border}`, borderRadius: 12, padding: '12px 16px', fontSize: 15, outline: 'none', fontFamily: 'inherit', color: c.dark }} />
-            </div>
-          ))}
-          <button onClick={registrar} disabled={loading}
-            style={{ background: c.dark, color: '#fff', border: 'none', borderRadius: 14, padding: 15, fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', marginTop: 4 }}>
-            {loading ? 'Entrando...' : 'Entrar al Prode →'}
-          </button>
-        </div>
-      </div>
-    </div>
+    <ProdeAuth onSuccess={(u) => {
+      setUsuario(u)
+      localStorage.setItem('prode_usuario', JSON.stringify(u))
+      cargarDatos(u.id)
+    }} />
   )
 
   return (
