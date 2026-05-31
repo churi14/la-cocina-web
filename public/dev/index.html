@@ -374,80 +374,97 @@
       animation: fadeUp 340ms var(--ease-out) 360ms forwards;
     }
 
-    .ig-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .ig-label {
-      font-size: 0.62rem;
-      color: var(--muted);
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .ig-links {
+    .ig-title {
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
     }
 
-    .ig-btn {
+    .ig-icon-wrap {
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      background: var(--glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      color: var(--muted-l);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-decoration: none;
-      -webkit-tap-highlight-color: transparent;
-      transition:
-        border-color 180ms ease,
-        color 180ms ease,
-        background 180ms ease,
-        transform 180ms var(--ease-out),
-        box-shadow 180ms ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      justify-content: center;
     }
 
-    .ig-btn:active {
-      transform: scale(0.98);
+    .ig-icon-wrap svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--muted-l);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .ig-title-text {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .ig-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ig-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 160ms var(--ease-out), filter 160ms ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ig-pill::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .ig-pill:active {
+      transform: scale(0.97);
       transition: transform 100ms var(--ease-out);
     }
 
     @media (hover: hover) and (pointer: fine) {
-      .ig-btn:hover {
-        border-color: rgba(193,53,132,0.3);
-        color: #e1306c;
-        background: rgba(193,53,132,0.06);
-        transform: translateX(3px);
-        box-shadow: 0 4px 16px rgba(193,53,132,0.1);
+      .ig-pill:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.1);
       }
     }
 
-    .ig-icon { width: 16px; height: 16px; flex-shrink: 0; }
-
-    .ig-brand-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
+    .ig-pill svg {
+      width: 18px;
+      height: 18px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 1.8;
       flex-shrink: 0;
+      opacity: 0.9;
     }
 
-    .ig-brand-name { flex: 1; font-weight: 600; color: var(--text); opacity: 0.7; }
-    .ig-handle { font-size: 0.72rem; color: var(--muted); margin-left: auto; }
+    .ig-pill-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.01em;
+    }
 
-    /* ── MAP ── */
+    /* ── MAPA ── */
     .map-section {
       width: 100%;
       margin-top: 24px;
@@ -456,46 +473,51 @@
       animation: fadeUp 320ms var(--ease-out) 400ms forwards;
     }
 
-    .map-btn {
+    .map-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    .map-embed {
+      width: 100%;
+      height: 180px;
+      display: block;
+      filter: grayscale(1) invert(1) brightness(0.75) contrast(1.1);
+    }
+
+    .map-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .map-footer {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      padding: 12px 16px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: var(--glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      color: var(--muted-l);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
+      gap: 10px;
       text-decoration: none;
-      width: 100%;
       -webkit-tap-highlight-color: transparent;
-      transition:
-        border-color 180ms ease,
-        color 180ms ease,
-        transform 180ms var(--ease-out);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: background 160ms ease;
     }
 
     @media (hover: hover) and (pointer: fine) {
-      .map-btn:hover {
-        border-color: rgba(201,168,76,0.2);
-        color: var(--gold);
-        transform: translateX(3px);
-      }
+      .map-footer:hover { background: rgba(255,255,255,0.07); }
     }
 
-    .map-btn:active {
-      transform: scale(0.98);
-      transition: transform 100ms var(--ease-out);
-    }
-
-    .map-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-    .map-btn-text { flex: 1; }
-    .map-btn-address { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
+    .map-footer:active { background: rgba(255,255,255,0.06); }
+    .map-footer svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2; flex-shrink: 0; }
+    .map-footer-text { flex: 1; }
+    .map-footer-title { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+    .map-footer-sub { font-size: 0.65rem; color: var(--muted); margin-top: 1px; }
+    .map-footer-arrow { width: 14px; height: 14px; stroke: var(--muted); fill: none; stroke-width: 2; opacity: 0.4; }
 
     /* ── FOOTER ── */
     .footer {
@@ -593,58 +615,48 @@
 
   <!-- INSTAGRAM -->
   <div class="ig-section">
-    <div class="ig-header">
-      <div class="ig-label">Seguinos</div>
+    <div class="ig-title">
+      <div class="ig-icon-wrap">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </div>
+      <div class="ig-title-text">Seguinos en Instagram</div>
     </div>
-    <div class="ig-links">
-      <a href="https://instagram.com/laburgerclubushu" target="_blank" class="ig-btn">
-        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-        </svg>
-        <div class="ig-brand-dot" style="background:#e05c2a"></div>
-        <span class="ig-brand-name">La Burger Club</span>
-        <span class="ig-handle">@laburgerclubushu</span>
+    <div class="ig-pills">
+      <a href="https://instagram.com/laburgerclubushu" target="_blank" class="ig-pill" style="background: linear-gradient(135deg, #e05c2a, #c44820);">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <span class="ig-pill-name">La Burger Club</span>
       </a>
-      <a href="https://instagram.com/clubdellomito" target="_blank" class="ig-btn">
-        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-        </svg>
-        <div class="ig-brand-dot" style="background:#3a8f6e"></div>
-        <span class="ig-brand-name">Club del Lomito</span>
-        <span class="ig-handle">@clubdellomito</span>
+      <a href="https://instagram.com/clubdellomito" target="_blank" class="ig-pill" style="background: linear-gradient(135deg, #3a8f6e, #2a6e52);">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <span class="ig-pill-name">Club del Lomito</span>
       </a>
-      <a href="https://instagram.com/milanesaushuaia" target="_blank" class="ig-btn">
-        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-        </svg>
-        <div class="ig-brand-dot" style="background:#c9a84c"></div>
-        <span class="ig-brand-name">Milanesa</span>
-        <span class="ig-handle">@milanesaushuaia</span>
+      <a href="https://instagram.com/milanesaushuaia" target="_blank" class="ig-pill" style="background: linear-gradient(135deg, #c9a84c, #a8862e);">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <span class="ig-pill-name">Milanesa</span>
       </a>
     </div>
   </div>
 
   <!-- MAPA -->
   <div class="map-section">
-    <a href="https://www.google.com/maps/search/Ara+Bahia+Paraiso+811+V9410+Ushuaia" target="_blank" class="map-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-        <circle cx="12" cy="10" r="3"/>
-      </svg>
-      <div class="map-btn-text">
-        <div>Cómo llegar</div>
-        <div class="map-btn-address">Ara Bahía Paraíso 811 · Ushuaia</div>
+    <div class="map-wrap">
+      <div class="map-embed">
+        <iframe
+          src="https://maps.google.com/maps?q=Ara+Bahia+Paraiso+811+Ushuaia+Tierra+del+Fuego&output=embed"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;opacity:0.4">
-        <path d="M9 18l6-6-6-6"/>
-      </svg>
-    </a>
+      <a href="https://www.google.com/maps/search/Ara+Bahia+Paraiso+811+V9410+Ushuaia" target="_blank" class="map-footer">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="map-footer-text">
+          <div class="map-footer-title">Cómo llegar</div>
+          <div class="map-footer-sub">Ara Bahía Paraíso 811 · Ushuaia</div>
+        </div>
+        <svg class="map-footer-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+    </div>
   </div>
 
   <!-- FOOTER -->
