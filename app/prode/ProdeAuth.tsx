@@ -87,10 +87,7 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
         - overflow: hidden → para que el overlay no se salga
         - display: flex → los dos formularios quedan side by side
       */}
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: 760,
+      <div className="prode-container" style={{
         height: '100%',
         maxHeight: 560,
         borderRadius: 24,
@@ -101,7 +98,7 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
       }}>
 
         {/* ── FORMULARIO LOGIN (izquierda, 50%) ── */}
-        <div style={{
+        <div className="prode-form" style={{
           width: '50%',
           height: '100%',
           flexShrink: 0,
@@ -152,7 +149,7 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
         </div>
 
         {/* ── FORMULARIO REGISTRO (derecha, 50%) ── */}
-        <div style={{
+        <div className="prode-form" style={{
           width: '50%',
           height: '100%',
           flexShrink: 0,
@@ -219,6 +216,7 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
           - Tapa el formulario activo y revela el otro
         */}
         <motion.div
+          className="prode-overlay"
           animate={{ x: isSignUp ? '100%' : '0%' }}
           transition={{ duration: 0.55, ease: 'easeInOut' }}
           style={{
@@ -303,7 +301,7 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
               e.currentTarget.style.background = 'transparent'
             }}
           >
-            {isSignUp ? 'Ingresar' : 'Registrarme'}
+            {isSignUp ? 'Iniciar sesión' : 'Registrarme'}
           </button>
         </motion.div>
 
@@ -312,6 +310,24 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
       <style>{`
         input::placeholder { color: rgba(255,255,255,0.2); }
         input:focus { border-color: rgba(201,168,76,0.4) !important; }
+        @media (max-width: 600px) {
+          .prode-container {
+            max-height: 100dvh !important;
+            border-radius: 0 !important;
+          }
+          .prode-form {
+            padding: 28px 20px !important;
+          }
+          .prode-overlay {
+            padding: 28px 20px !important;
+          }
+          .prode-overlay-title {
+            font-size: 1rem !important;
+          }
+          .prode-overlay-sub {
+            font-size: 0.65rem !important;
+          }
+        }
       `}</style>
     </div>
   )
