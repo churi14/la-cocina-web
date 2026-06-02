@@ -310,15 +310,6 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
       <style>{`
         input::placeholder { color: rgba(255,255,255,0.2); }
         input:focus { border-color: rgba(201,168,76,0.4) !important; }
-        @media (max-width: 600px) {
-          .prode-container {
-            border-radius: 20px !important;
-          }
-          .prode-form h2 { font-size: 1rem !important; }
-          .prode-form p { font-size: 0.65rem !important; }
-          .prode-overlay-title { font-size: 1rem !important; }
-          .prode-overlay-sub { font-size: 0.62rem !important; }
-        }
       `}</style>
     </div>
   )
