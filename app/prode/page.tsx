@@ -423,7 +423,7 @@ function PartidoCard({ partido, pronostico, usuarioId, onGuardado, isEditing, on
   partido: Partido; pronostico: Pronostico | undefined
   usuarioId: string; onGuardado: () => void
   isEditing: boolean; onEdit: () => void
-}) { {
+}) {
   const [local, setLocal] = useState<string>(pronostico?.goles_local?.toString() ?? '')
   const [visitante, setVisitante] = useState<string>(pronostico?.goles_visitante?.toString() ?? '')
   const [saving, setSaving] = useState(false)
