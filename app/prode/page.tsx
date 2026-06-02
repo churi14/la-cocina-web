@@ -68,6 +68,8 @@ function diasHastaInicio() {
 export default function ProdePage() {
   const [screen, setScreen] = useState<Screen>('home')
   const [tabPartidos, setTabPartidos] = useState<TabPartidos>('pendientes')
+  const [visibleCount, setVisibleCount] = useState(4)
+  const [editingIds, setEditingIds] = useState<Set<string>>(new Set())
   const [usuario, setUsuario] = useState<Usuario | null>(null)
   const [partidos, setPartidos] = useState<Partido[]>([])
   const [pronosticos, setPronosticos] = useState<Record<string, Pronostico>>({})
@@ -287,7 +289,7 @@ export default function ProdePage() {
               <div style={{ fontSize: 18, fontWeight: 800, color: c.dark }}>Partidos</div>
               <div style={{ display: 'flex', background: c.bg, borderRadius: 10, padding: 3, marginTop: 10 }}>
                 {(['pendientes', 'completados'] as TabPartidos[]).map(t => (
-                  <button key={t} onClick={() => setTabPartidos(t)}
+                  <button key={t} onClick={() => { setTabPartidos(t); setVisibleCount(4) }}
                     style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: tabPartidos === t ? c.white : 'transparent', fontWeight: 700, fontSize: 13, color: tabPartidos === t ? c.dark : c.muted, cursor: 'pointer', fontFamily: 'inherit', boxShadow: tabPartidos === t ? '0 1px 4px rgba(0,0,0,0.08)' : 'none' }}>
                     {t === 'pendientes' ? 'Pendientes' : 'Completados'}
                   </button>
@@ -302,22 +304,60 @@ export default function ProdePage() {
             </div>
 
             <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 0 }}>
-              {Object.entries(agruparPorFecha(tabPartidos === 'pendientes' ? partidosPendientes : partidosCompletados)).map(([fecha, ps]) => (
-                <div key={fecha}>
-                  <div style={{ fontSize: 14, fontWeight: 800, color: c.dark, padding: '12px 0 8px', textTransform: 'capitalize' }}>{fecha}</div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {ps.map(p => (
-                      <PartidoCard key={p.id} partido={p} pronostico={pronosticos[p.id]}
-                        usuarioId={usuario.id} onGuardado={() => cargarDatos(usuario.id)} />
+              {tabPartidos === 'pendientes' && (() => {
+                const lista = partidosPendientes.slice(0, visibleCount)
+                const grupos = agruparPorFecha(lista)
+                return (
+                  <>
+                    {Object.entries(grupos).map(([fecha, ps]) => (
+                      <div key={fecha}>
+                        <div style={{ fontSize: 14, fontWeight: 800, color: c.dark, padding: '12px 0 8px', textTransform: 'capitalize' }}>{fecha}</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                          {ps.map(p => (
+                            <PartidoCard key={p.id} partido={p} pronostico={pronosticos[p.id]}
+                              usuarioId={usuario.id} onGuardado={() => cargarDatos(usuario.id)}
+                              isEditing={false} onEdit={() => {}} />
+                          ))}
+                        </div>
+                      </div>
                     ))}
-                  </div>
-                </div>
-              ))}
-              {(tabPartidos === 'pendientes' ? partidosPendientes : partidosCompletados).length === 0 && (
-                <div style={{ textAlign: 'center', padding: 40, color: c.muted, fontSize: 13 }}>
-                  {tabPartidos === 'pendientes' ? 'No hay partidos pendientes' : 'Todavía no hay partidos completados'}
-                </div>
-              )}
+                    {partidosPendientes.length === 0 && (
+                      <div style={{ textAlign: 'center', padding: 40, color: c.muted, fontSize: 13 }}>No hay partidos pendientes</div>
+                    )}
+                    {visibleCount < partidosPendientes.length && (
+                      <button onClick={() => setVisibleCount(v => v + 4)}
+                        style={{ margin: '16px auto 0', display: 'flex', alignItems: 'center', gap: 6, background: c.white, border: `1px solid ${c.border}`, borderRadius: 12, padding: '10px 24px', fontSize: 13, fontWeight: 700, color: c.dark, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+                        Ver más ↓ <span style={{ color: c.muted, fontWeight: 400, marginLeft: 4 }}>({partidosPendientes.length - visibleCount} restantes)</span>
+                      </button>
+                    )}
+                  </>
+                )
+              })()}
+
+              {tabPartidos === 'completados' && (() => {
+                const grupos = agruparPorFecha(partidosCompletados)
+                return (
+                  <>
+                    {Object.entries(grupos).map(([fecha, ps]) => (
+                      <div key={fecha}>
+                        <div style={{ fontSize: 14, fontWeight: 800, color: c.dark, padding: '12px 0 8px', textTransform: 'capitalize' }}>{fecha}</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                          {ps.map(p => (
+                            <PartidoCard key={p.id} partido={p} pronostico={pronosticos[p.id]}
+                              usuarioId={usuario.id}
+                              onGuardado={() => { cargarDatos(usuario.id); setEditingIds(prev => { const s = new Set(prev); s.delete(p.id); return s }) }}
+                              isEditing={editingIds.has(p.id)}
+                              onEdit={() => setEditingIds(prev => new Set([...prev, p.id]))} />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    {partidosCompletados.length === 0 && (
+                      <div style={{ textAlign: 'center', padding: 40, color: c.muted, fontSize: 13 }}>Todavía no completaste ningún partido</div>
+                    )}
+                  </>
+                )
+              })()}
             </div>
           </div>
         )}
@@ -379,15 +419,17 @@ export default function ProdePage() {
 }
 
 // ── TARJETA DE PARTIDO ──
-function PartidoCard({ partido, pronostico, usuarioId, onGuardado }: {
+function PartidoCard({ partido, pronostico, usuarioId, onGuardado, isEditing, onEdit }: {
   partido: Partido; pronostico: Pronostico | undefined
   usuarioId: string; onGuardado: () => void
-}) {
+  isEditing: boolean; onEdit: () => void
+}) { {
   const [local, setLocal] = useState<string>(pronostico?.goles_local?.toString() ?? '')
   const [visitante, setVisitante] = useState<string>(pronostico?.goles_visitante?.toString() ?? '')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(!!pronostico)
   const abierto = partido.estado === 'abierto' && new Date() < new Date(partido.fecha_hora)
+  const puedeEditar = abierto && !!pronostico && !isEditing
   const c = { white: '#ffffff', dark: '#1a1a1a', muted: '#888', border: '#e8e8e8', bg: '#f5f5f5', green: '#22c55e', red: '#ef4444', blue: '#3b82f6' }
 
   async function guardar() {
@@ -485,11 +527,27 @@ function PartidoCard({ partido, pronostico, usuarioId, onGuardado }: {
           </div>
         </div>
       </div>
-      {abierto && (
+      {/* Modo completado: muestra resultado + botón Editar */}
+      {saved && !isEditing && (
+        <div style={{ padding: '10px 14px', borderTop: `1px solid ${c.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ fontSize: 13, color: c.muted, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontWeight: 500 }}>Tu resultado</span>
+            <span style={{ fontWeight: 800, color: c.dark }}>{local} - {visitante}</span>
+          </div>
+          {abierto && (
+            <button onClick={onEdit}
+              style={{ background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 8, padding: '6px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
+              Editar
+            </button>
+          )}
+        </div>
+      )}
+      {/* Modo edición o sin guardar */}
+      {(abierto && (!saved || isEditing)) && (
         <div style={{ padding: '0 14px 14px' }}>
           <button onClick={guardar} disabled={saving}
-            style={{ background: saved ? '#f0fdf4' : c.dark, color: saved ? c.green : '#fff', border: `1px solid ${saved ? '#bbf7d0' : c.dark}`, borderRadius: 12, padding: '11px', fontSize: 13, fontWeight: 700, cursor: 'pointer', width: '100%', fontFamily: 'inherit' }}>
-            {saving ? 'Guardando...' : saved ? '✓ Guardado · Toca para actualizar' : 'Guardar pronóstico'}
+            style={{ background: c.dark, color: '#fff', border: `1px solid ${c.dark}`, borderRadius: 12, padding: '11px', fontSize: 13, fontWeight: 700, cursor: 'pointer', width: '100%', fontFamily: 'inherit' }}>
+            {saving ? 'Guardando...' : isEditing ? 'Guardar cambios ✓' : 'Guardar pronóstico'}
           </button>
         </div>
       )}
