@@ -231,6 +231,91 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
+            gap: 12,
+            padding: '32px 20px',
+          }}
+        >
+          {/* Glow */}
+          <div style={{
+            position: 'absolute', inset: 0, pointerEvents: 'none',
+            background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.1) 0%, transparent 70%)',
+          }} />
+
+          {/* Logo */}
+          <div style={{ position: 'relative', width: 44, height: 44 }}>
+            <div style={{
+              position: 'absolute', inset: -8, borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(201,168,76,0.2) 0%, transparent 70%)',
+            }} />
+            <div style={{
+              position: 'relative', width: 44, height: 44, borderRadius: '50%',
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(201,168,76,0.2)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 10,
+            }}>
+              <img src="https://www.lacocinaushuaia.com.ar/logo-blanco.svg" alt="La Cocina" style={{ width: '100%', objectFit: 'contain' }} />
+            </div>
+          </div>
+
+          {/* Texto */}
+          <div style={{ position: 'relative', textAlign: 'center' }}>
+            <div style={{ fontSize: '0.55rem', color: '#c9a84c', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>
+              Prode Mundial 2026
+            </div>
+            <div className="prode-overlay-title" style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', lineHeight: 1.2 }}>
+              {isSignUp ? 'Ya tenés\ncuenta?' : '¿Primera\nvez?'}
+            </div>
+            <div className="prode-overlay-sub" style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.4)', marginTop: 6, lineHeight: 1.5 }}>
+              {isSignUp
+                ? 'Ingresá con tu WhatsApp\ny seguí acumulando puntos'
+                : 'Registrate gratis y ganá\npremios reales en La Cocina'}
+            </div>
+          </div>
+
+          {/* Divisor */}
+          <div style={{ width: 28, height: 1, background: 'rgba(201,168,76,0.3)' }} />
+
+          {/* Ghost button */}
+          <button
+            onClick={() => setIsSignUp(prev => !prev)}
+            style={{
+              background: 'transparent',
+              color: '#fff',
+              border: '1px solid rgba(255,255,255,0.25)',
+              borderRadius: 8,
+              padding: '8px 20px',
+              fontSize: '0.74rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              letterSpacing: '0.02em',
+              transition: 'border-color 180ms ease, background 180ms ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(201,168,76,0.5)'
+              e.currentTarget.style.background = 'rgba(201,168,76,0.08)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'
+              e.currentTarget.style.background = 'transparent'
+            }}
+          >
+            {isSignUp ? 'Iniciar sesión' : 'Registrarme'}
+          </button>
+        </motion.div>
+          transition={{ duration: 0.55, ease: 'easeInOut' }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '50%',
+            height: '100%',
+            zIndex: 10,
+            background: 'linear-gradient(160deg, #1c1200 0%, #0d0d0d 50%, #1a1000 100%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
             gap: 20,
             padding: '40px 32px',
           }}
