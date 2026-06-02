@@ -224,6 +224,62 @@ export default function ProdePage() {
               </div>
             )}
 
+            {/* ── PARTIDOS EN HOME ── */}
+            <div style={{ margin: '12px 16px 0' }}>
+              {/* Tabs */}
+              <div style={{ display: 'flex', background: '#f0f0f0', borderRadius: 10, padding: 3, marginBottom: 12 }}>
+                {(['pendientes', 'completados'] as TabPartidos[]).map(t => (
+                  <button key={t} onClick={() => { setTabPartidos(t); setVisibleCount(4) }}
+                    style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: tabPartidos === t ? c.white : 'transparent', fontWeight: 700, fontSize: 13, color: tabPartidos === t ? c.dark : c.muted, cursor: 'pointer', fontFamily: 'inherit', boxShadow: tabPartidos === t ? '0 1px 4px rgba(0,0,0,0.08)' : 'none' }}>
+                    {t === 'pendientes' ? 'Pendientes' : 'Completados'}
+                  </button>
+                ))}
+              </div>
+
+              {/* Pendientes */}
+              {tabPartidos === 'pendientes' && (() => {
+                const lista = partidosPendientes.slice(0, visibleCount)
+                return (
+                  <>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {lista.map(p => (
+                        <PartidoCard key={p.id} partido={p} pronostico={pronosticos[p.id]}
+                          usuarioId={usuario.id} onGuardado={() => cargarDatos(usuario.id)}
+                          isEditing={false} onEdit={() => {}} />
+                      ))}
+                    </div>
+                    {partidosPendientes.length === 0 && (
+                      <div style={{ textAlign: 'center', padding: 24, color: c.muted, fontSize: 13 }}>No hay partidos pendientes</div>
+                    )}
+                    {visibleCount < partidosPendientes.length && (
+                      <button onClick={() => setVisibleCount(v => v + 4)}
+                        style={{ margin: '12px auto 0', display: 'flex', alignItems: 'center', gap: 6, background: c.white, border: `1px solid ${c.border}`, borderRadius: 12, padding: '10px 24px', fontSize: 13, fontWeight: 700, color: c.dark, cursor: 'pointer', fontFamily: 'inherit' }}>
+                        Ver más ↓ <span style={{ color: c.muted, fontWeight: 400, marginLeft: 4 }}>({partidosPendientes.length - visibleCount} restantes)</span>
+                      </button>
+                    )}
+                  </>
+                )
+              })()}
+
+              {/* Completados */}
+              {tabPartidos === 'completados' && (
+                <>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {partidosCompletados.map(p => (
+                      <PartidoCard key={p.id} partido={p} pronostico={pronosticos[p.id]}
+                        usuarioId={usuario.id}
+                        onGuardado={() => { cargarDatos(usuario.id); setEditingIds(prev => { const s = new Set(prev); s.delete(p.id); return s }) }}
+                        isEditing={editingIds.has(p.id)}
+                        onEdit={() => setEditingIds(prev => new Set([...prev, p.id]))} />
+                    ))}
+                  </div>
+                  {partidosCompletados.length === 0 && (
+                    <div style={{ textAlign: 'center', padding: 24, color: c.muted, fontSize: 13 }}>Todavía no completaste ningún partido</div>
+                  )}
+                </>
+              )}
+            </div>
+
             {/* Próximo partido */}
             {proximoPartido && (
               <div style={{ margin: '12px 16px 0', background: c.white, borderRadius: 16, padding: 16, border: `1px solid ${c.border}` }}>
