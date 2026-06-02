@@ -46,13 +46,13 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
     width: '100%',
     background: 'rgba(255,255,255,0.06)',
     border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: 10,
-    padding: '10px 12px',
+    borderRadius: 8,
+    padding: '8px 10px',
     color: '#fff',
-    fontSize: '0.78rem',
+    fontSize: '0.72rem',
     outline: 'none',
     fontFamily: 'inherit',
-    marginTop: 4,
+    marginTop: 3,
   }
 
   const labelStyle: React.CSSProperties = {
@@ -110,8 +110,8 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
           gap: 20,
         }}>
           <div style={{ textAlign: 'center', marginBottom: 4 }}>
-            <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff' }}>Bienvenido</div>
-            <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginTop: 4 }}>
+            <div style={{ fontSize: '1rem', fontWeight: 800, color: '#fff' }}>Bienvenido</div>
+            <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', marginTop: 3 }}>
               Ingresá con tu WhatsApp
             </div>
           </div>
@@ -161,8 +161,8 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
           gap: 16,
         }}>
           <div style={{ textAlign: 'center', marginBottom: 4 }}>
-            <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff' }}>Crear cuenta</div>
-            <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginTop: 4 }}>
+            <div style={{ fontSize: '1rem', fontWeight: 800, color: '#fff' }}>Crear cuenta</div>
+            <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', marginTop: 3 }}>
               Registrate gratis para jugar
             </div>
           </div>
@@ -262,10 +262,10 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
             <div style={{ fontSize: '0.6rem', color: '#c9a84c', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 8 }}>
               Prode Mundial 2026
             </div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', lineHeight: 1.2 }}>
+            <div className="prode-overlay-title" style={{ fontSize: '1.1rem', fontWeight: 900, color: '#fff', lineHeight: 1.2 }}>
               {isSignUp ? 'Ya tenés\ncuenta?' : '¿Primera\nvez?'}
             </div>
-            <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', marginTop: 8, lineHeight: 1.5 }}>
+            <div className="prode-overlay-sub" style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', marginTop: 6, lineHeight: 1.5 }}>
               {isSignUp
                 ? 'Ingresá con tu WhatsApp\ny seguí acumulando puntos'
                 : 'Registrate gratis y ganá\npremios reales en La Cocina'}
@@ -312,21 +312,12 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
         input:focus { border-color: rgba(201,168,76,0.4) !important; }
         @media (max-width: 600px) {
           .prode-container {
-            max-height: 100dvh !important;
-            border-radius: 0 !important;
+            border-radius: 20px !important;
           }
-          .prode-form {
-            padding: 28px 20px !important;
-          }
-          .prode-overlay {
-            padding: 28px 20px !important;
-          }
-          .prode-overlay-title {
-            font-size: 1rem !important;
-          }
-          .prode-overlay-sub {
-            font-size: 0.65rem !important;
-          }
+          .prode-form h2 { font-size: 1rem !important; }
+          .prode-form p { font-size: 0.65rem !important; }
+          .prode-overlay-title { font-size: 1rem !important; }
+          .prode-overlay-sub { font-size: 0.62rem !important; }
         }
       `}</style>
     </div>
