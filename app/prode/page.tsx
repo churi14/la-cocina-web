@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
 import ProdeAuth from './ProdeAuth'
 
@@ -226,11 +227,15 @@ export default function ProdePage() {
 
             {/* ── PARTIDOS EN HOME ── */}
             <div style={{ margin: '12px 16px 0' }}>
-              {/* Tabs */}
-              <div style={{ display: 'flex', background: '#f0f0f0', borderRadius: 10, padding: 3, marginBottom: 12 }}>
-                {(['pendientes', 'completados'] as TabPartidos[]).map(t => (
+              {/* Tabs con pill animado */}
+              <div style={{ display: 'flex', background: '#f0f0f0', borderRadius: 10, padding: 3, marginBottom: 12, position: 'relative' }}>
+                {(['completados', 'pendientes'] as TabPartidos[]).map(t => (
                   <button key={t} onClick={() => { setTabPartidos(t); setVisibleCount(4) }}
-                    style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: tabPartidos === t ? c.white : 'transparent', fontWeight: 700, fontSize: 13, color: tabPartidos === t ? c.dark : c.muted, cursor: 'pointer', fontFamily: 'inherit', boxShadow: tabPartidos === t ? '0 1px 4px rgba(0,0,0,0.08)' : 'none' }}>
+                    style={{ flex: 1, padding: '9px 8px', borderRadius: 8, border: 'none', background: 'transparent', fontWeight: 700, fontSize: 13, color: tabPartidos === t ? c.dark : c.muted, cursor: 'pointer', fontFamily: 'inherit', position: 'relative', zIndex: 1, transition: 'color 200ms ease' }}>
+                    {tabPartidos === t && (
+                      <motion.div layoutId="tab-pill-home" transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+                        style={{ position: 'absolute', inset: 0, background: c.white, borderRadius: 8, boxShadow: '0 1px 6px rgba(0,0,0,0.1)', zIndex: -1 }} />
+                    )}
                     {t === 'pendientes' ? 'Pendientes' : 'Completados'}
                   </button>
                 ))}
@@ -343,10 +348,14 @@ export default function ProdePage() {
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingBottom: 90 }}>
             <div style={{ padding: '14px 16px', background: c.white, borderBottom: `1px solid ${c.border}` }}>
               <div style={{ fontSize: 18, fontWeight: 800, color: c.dark }}>Partidos</div>
-              <div style={{ display: 'flex', background: c.bg, borderRadius: 10, padding: 3, marginTop: 10 }}>
-                {(['pendientes', 'completados'] as TabPartidos[]).map(t => (
+              <div style={{ display: 'flex', background: c.bg, borderRadius: 10, padding: 3, marginTop: 10, position: 'relative' }}>
+                {(['completados', 'pendientes'] as TabPartidos[]).map(t => (
                   <button key={t} onClick={() => { setTabPartidos(t); setVisibleCount(4) }}
-                    style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: tabPartidos === t ? c.white : 'transparent', fontWeight: 700, fontSize: 13, color: tabPartidos === t ? c.dark : c.muted, cursor: 'pointer', fontFamily: 'inherit', boxShadow: tabPartidos === t ? '0 1px 4px rgba(0,0,0,0.08)' : 'none' }}>
+                    style={{ flex: 1, padding: '9px 8px', borderRadius: 8, border: 'none', background: 'transparent', fontWeight: 700, fontSize: 13, color: tabPartidos === t ? c.dark : c.muted, cursor: 'pointer', fontFamily: 'inherit', position: 'relative', zIndex: 1, transition: 'color 200ms ease' }}>
+                    {tabPartidos === t && (
+                      <motion.div layoutId="tab-pill-jugar" transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+                        style={{ position: 'absolute', inset: 0, background: c.white, borderRadius: 8, boxShadow: '0 1px 6px rgba(0,0,0,0.1)', zIndex: -1 }} />
+                    )}
                     {t === 'pendientes' ? 'Pendientes' : 'Completados'}
                   </button>
                 ))}
