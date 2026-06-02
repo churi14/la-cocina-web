@@ -88,8 +88,7 @@ export default function ProdeAuth({ onSuccess }: ProdeAuthProps) {
         - display: flex → los dos formularios quedan side by side
       */}
       <div className="prode-container" style={{
-        height: '100%',
-        maxHeight: 560,
+        height: 560,
         borderRadius: 24,
         boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)',
         overflow: 'hidden',
